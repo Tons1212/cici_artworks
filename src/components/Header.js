@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import backgroundImg from '../assets/mohammad-rahmani-8qEB0fTe9Vw-unsplash.webp';
-import france from '../assets/france.png';
+import france from '../assets/Germany.png';
 import england from '../assets/royaume-uni.png';
 
 function Header() {

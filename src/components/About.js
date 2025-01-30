@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import selfie from '../assets/bibi.png';
+import selfie from '../assets/profil_pic.jpeg';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 

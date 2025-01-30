@@ -1,87 +1,82 @@
 {
-    "header": {
-      "home": "Accueil",
-      "about": "À propos",
-      "skills": "Compétences",
-      "portfolio": "Portfolio",
-      "contact": "Contact",
-      "intro": "Hello !",
-      "intro1": "Je suis Antoine GROSJAT",
-      "jobTitle": "Intégrateur web",
-      "learnMore": "En savoir plus"
-    },
-    "about": {
-    "title": "À propos de moi",
-    "text": "Passionné par la création de sites web interactifs et esthétiques, j'ai suivi en 2023/2024, une formation d'intégrateur Web chez Openclassrooms, axée sur HTML, CSS et JavaScript. Mon ambition est de transformer des concepts visuels en expériences utilisateur à la fois engageantes et fonctionnelles.",
-    "text1": "Toujours en quête de nouvelles opportunités pour apprendre et progresser, je m'investis dans le développement web avec l'objectif constant d'améliorer mes compétences, d'explorer de nouvelles technologies et de participer à des projets innovants qui repoussent les limites du design numérique."
+  "header": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "skills": "Fähigkeiten",
+    "portfolio": "Portfolio",
+    "contact": "Kontakt",
+    "intro": "Hallo!",
+    "intro1": "Ich bin Antoine GROSJAT",
+    "jobTitle": "Web-Integrator",
+    "learnMore": "Mehr erfahren"
   },
-    "skills": {
-      "title": "Compétences",
-      "front": "Front-end",
-      "back": "Back-end"
-    },
-    "portfolio": {
-      "title": "Portfolio",
-      "viewMore": "Voir plus",
-      "tech": "Technologies utilisées :",
-      "gitlink": "Lien Github :",
-      "code": "Voir le code du projet",
-      "projects" : [
-        {
-          "title": "Kasa",
-          "description": "Création d'une application web de location immoblière avec React.",
-          "link": "https://github.com/Tons1212/Kasa",
-          "image": "../kasa.png",
-          "additionalInfo": "Kasa est le premier projet React que j'ai réalisé dans le cadre de ma formation d'intégrateur web.",
-          "objectives": "A partir de spécifiations fournies, j'ai réalisé une application de location immobilière. L'utilisation des bibliothèques React et React Router m'a permis de créer une interface utilisateur dynamique et interactive, et Sass de faciliter la gestion des styles. Les données sur les logements sont importées à partir d'un fichier Json fourni pour de meilleures performances et une facilité de mise à jour.",
-          "technologies": [
-              "../react.jpg",
-              "../react-router.png",
-              "../sass.png",
-              "../github.jpg"
-            ]        
-          },
-        {
-          "title": "Nina Carducci",
-          "description": "Optimisation du référencement SEO du site d'une photographe professionnelle.",
-          "link": "https://github.com/Tons1212/Nina-Carducci",
-          "image": "../nina.webp",
-          "additionalInfo": "Amélioration des performances, de l'accessibilité et des bonnes pratiques du site pour un meilleur référencement.",
-          "objectives": "Les audits effectués m'ont permis d'identifier et d'optimiser le code de l'application. En réduisant le poids des images, en minifiant les fichiers CSS et en intégrant des balises de référencement, j'ai pu significativement améliorer les performances du site. Enfin, j'ai édité un rapport pour le client, expliquant les modifications éffectuées et leurs impacts sur l'application. ",
-          "technologies": [
-              "../lighthouse.png",
-              "../wave.png",
-              "../github.jpg"
-            ]
-        },
-        {
-          "title": "Argent Bank",
-          "description": "Création d'une interface utilisateur sécurisée pour une application bancaire avec React et Redux.",
-          "link": "https://github.com/Tons1212/Argent-Bank",
-          "image": "../bank-tree.png",
-          "additionalInfo": "Argent Bank est un projet réalisé dans le cadre de ma formation d'intégrateur web chez OpenClassrooms. ",
-          "objectives": "Mise en place d'une interface utilisateur avec un système d'authentification sécurisé permettant la modification du pseudo de l'utilisateur une fois celui-ci connecté. Réalisation d'un document via Swagger, décrivant les routes API côté back-end, qui permettent à l'utilisateur d'effectuer certaines transactions personnelles type consultation d'une transactions et...",
-          "technologies": [
-              "../react.jpg",
-              "../redux.png",
-              "../react-router.png",
-              "../github.jpg"
-            ]
-        }
-      ]
-    },
-    "contact": {
-      "title": "Contactez-moi",
-      "text": "N'hésitez pas à me contacter via mail ou téléphone ci dessous, ou en complétant le formulaire de contact.",
-      "name": "Nom :",
-      "firstName": "Prénom :",
-      "phone": "Téléphone :",
-      "mail": "Email :",
-      "object": "Objet :",
-      "message": "Message :",
-      "submit": "Envoyer"
-    },
-    "footer": {
-      "rights": "Tous droits réservés."
-    }
+  "about": {
+    "title": "Über mich",
+    "text": "Leidenschaftlich für die Erstellung interaktiver und ästhetischer Websites, habe ich eine Ausbildung zum Web-Integrator bei OpenClassrooms in den Jahren 2023/2024 absolviert, mit Schwerpunkt auf HTML, CSS und JavaScript. Mein Ziel ist es, visuelle Konzepte in Benutzererlebnisse zu verwandeln, die sowohl ansprechend als auch funktional sind.",
+    "text1": "Immer auf der Suche nach neuen Möglichkeiten zu lernen und mich weiterzuentwickeln, investiere ich mich in die Webentwicklung mit dem ständigen Ziel, meine Fähigkeiten zu verbessern, neue Technologien zu erkunden und an innovativen Projekten mitzuwirken, die die Grenzen des digitalen Designs erweitern."
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "viewMore": "Mehr anzeigen",
+    "tech": "Verwendete Technologien:",
+    "gitlink": "GitHub-Link:",
+    "code": "Projektcode ansehen",
+    "projects": [
+      {
+        "title": "Kasa",
+        "description": "Erstellung einer Webanwendung für Immobilienvermietungen mit React.",
+        "link": "https://github.com/Tons1212/Kasa",
+        "image": "../kasa.png",
+        "additionalInfo": "Kasa ist das erste React-Projekt, das ich im Rahmen meiner Ausbildung zum Web-Integrator realisiert habe.",
+        "objectives": "Basierend auf den bereitgestellten Spezifikationen habe ich diese Immobilienvermietungsanwendung erstellt. Durch die Verwendung der React- und React-Router-Bibliotheken konnte ich eine dynamische und interaktive Benutzeroberfläche erstellen, und Sass erleichterte die Verwaltung der Styles. Die Immobiliendaten werden aus einer bereitgestellten JSON-Datei importiert, um die Leistung zu optimieren und Aktualisierungen zu erleichtern.",
+        "technologies": [
+            "../react.jpg",
+            "../react-router.png",
+            "../sass.png",
+            "../github.jpg"
+        ]
+      },
+      {
+        "title": "Nina Carducci",
+        "description": "SEO-Optimierung einer Fotografen-Website.",
+        "link": "https://github.com/Tons1212/Nina-Carducci",
+        "image": "../nina.webp",
+        "additionalInfo": "Verbesserung der Website-Performance, Barrierefreiheit und Best Practices für besseres SEO.",
+        "objectives": "Die durchgeführten Audits ermöglichten es mir, den Anwendungscode zu identifizieren und zu optimieren. Durch die Reduzierung der Bildgrößen, das Minifizieren von CSS-Dateien und die Integration von SEO-Tags konnte ich die Leistung der Website erheblich verbessern. Schließlich habe ich einen Bericht für den Kunden erstellt, der die vorgenommenen Änderungen und deren Auswirkungen auf die Anwendung erklärt.",
+        "technologies": [
+            "../lighthouse.png",
+            "../wave.png",
+            "../github.jpg"
+        ]
+      },
+      {
+        "title": "Argent Bank",
+        "description": "Erstellung einer sicheren Benutzeroberfläche für eine Bankanwendung mit React und Redux.",
+        "link": "https://github.com/Tons1212/Argent-Bank",
+        "image": "../bank-tree.png",
+        "additionalInfo": "Argent Bank ist ein Projekt, das ich im Rahmen meiner Web-Integrator-Ausbildung bei OpenClassrooms durchgeführt habe.",
+        "objectives": "Implementierung einer Benutzeroberfläche mit einem sicheren Authentifizierungssystem und Erstellung eines Dokuments über Swagger, das die API-Routen auf der Backend-Seite beschreibt, sodass der Benutzer bestimmte persönliche Transaktionen durchführen kann.",
+        "technologies": [
+            "../react.jpg",
+            "../redux.png",
+            "../react-router.png",
+            "../github.jpg"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Kontakt",
+    "text": "Zögern Sie nicht, mich per E-Mail oder Telefon unten zu kontaktieren oder das Kontaktformular auszufüllen.",
+    "name": "Nachname:",
+    "firstName": "Vorname:",
+    "phone": "Telefonnummer:",
+    "mail": "E-Mail:",
+    "object": "Betreff:",
+    "message": "Nachricht:",
+    "submit": "Senden"
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten."
   }
+}
