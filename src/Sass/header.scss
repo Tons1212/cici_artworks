@@ -1,0 +1,209 @@
+header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  animation: fadein 0.5s ease-in-out;
+  .background {
+    position: absolute;
+    filter: brightness(60%) blur(3px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .navLinks {
+    background-color: $backgroundColor2; 
+    height: 40px;
+    width: 100%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000; 
+    
+    .navLinksContainer{
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+      margin-left: 90px;
+      a {
+        color: $textColor;
+        text-decoration: none;
+        padding: 0 15px; 
+        line-height: 40px;
+        font-size: 1.2rem;
+        &:hover {
+          background-color: $backgroundColor3;
+        }
+      }
+    }
+    .language-switcher {
+      display: flex;
+      gap: 5px;
+      margin-right: 10px;
+      @media (max-width: 768px) {
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+      button{
+        background-color: transparent;
+        border: none;
+        img {
+          width: 25px;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      position: fixed;
+      top: 0;
+      left: 100%; 
+      height: 40vh;
+      width: 45%; 
+      background-color: $backgroundColor; 
+      justify-content: center;
+      flex-direction: column;
+      transition: left 0.4s ease; 
+      .navLinksContainer{
+        flex-direction: column;
+        text-align: center;
+        margin: 0;
+        a {
+          padding: 5px;
+          font-size: 1.2rem;
+          color: $textColor;
+        }
+      }
+
+      &.open {
+        left: 55%;
+      }
+    }
+  }
+  .hamburger {
+    display: none; 
+
+    @media (max-width: 768px) {
+      display: block;
+      position: fixed;
+      background-color: $backgroundColor;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      cursor: pointer;
+      div {
+        width: 22px;
+        height: 2.3px;
+        background-color: $textColor;
+        margin: 3px -1px;
+        transition: all 0.3s ease;
+      }
+
+      
+      &.open div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &.open div:nth-child(2) {
+        opacity: 0; 
+      }
+
+      &.open div:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+  }
+
+  .intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    p {
+      font-size: 35px;
+      animation-delay: 300ms;
+    }
+    .wave {
+      display: inline-block;
+      animation: waveAnimation 1.5s ease-in-out infinite;
+      transform-origin: bottom;
+      position: relative;
+      top: -10px;
+    }
+    .button {
+      font-family: inherit;
+      display: inline-block;
+      background-color: $backgroundColor;
+      color: $textColor;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border: 1px solid $backgroundColor;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      animation-delay: 600ms;
+      &:hover {
+        background-color: $backgroundColor2;
+        border-color: $borderColor;
+      }
+    }
+    @media (max-width: 768px) {
+      .button {
+        animation: pulseBorder 2s infinite;
+      }
+      h1 {
+        font-size: 35px;
+      }
+      p {
+        font-size: 25px;
+      }
+    }
+  }
+
+  .social {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    animation-delay: 900ms;
+    margin-left: -55px;
+    
+    a {
+      color: $textColor;
+      font-size: 25px;
+      transition: transform 0.3s ease;
+      display: inline-block;
+      justify-content: center;
+      animation: bounce 1.5s ease infinite;
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+  
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+  
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+    }
+    @media (max-width: 768px) {
+      a {
+        margin-top: 10px;
+      }
+    }
+  }
+}

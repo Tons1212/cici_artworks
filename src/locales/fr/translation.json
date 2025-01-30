@@ -1,0 +1,87 @@
+{
+    "header": {
+      "home": "Accueil",
+      "about": "À propos",
+      "skills": "Compétences",
+      "portfolio": "Portfolio",
+      "contact": "Contact",
+      "intro": "Hello !",
+      "intro1": "Je suis Antoine GROSJAT",
+      "jobTitle": "Intégrateur web",
+      "learnMore": "En savoir plus"
+    },
+    "about": {
+    "title": "À propos de moi",
+    "text": "Passionné par la création de sites web interactifs et esthétiques, j'ai suivi en 2023/2024, une formation d'intégrateur Web chez Openclassrooms, axée sur HTML, CSS et JavaScript. Mon ambition est de transformer des concepts visuels en expériences utilisateur à la fois engageantes et fonctionnelles.",
+    "text1": "Toujours en quête de nouvelles opportunités pour apprendre et progresser, je m'investis dans le développement web avec l'objectif constant d'améliorer mes compétences, d'explorer de nouvelles technologies et de participer à des projets innovants qui repoussent les limites du design numérique."
+  },
+    "skills": {
+      "title": "Compétences",
+      "front": "Front-end",
+      "back": "Back-end"
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "viewMore": "Voir plus",
+      "tech": "Technologies utilisées :",
+      "gitlink": "Lien Github :",
+      "code": "Voir le code du projet",
+      "projects" : [
+        {
+          "title": "Kasa",
+          "description": "Création d'une application web de location immoblière avec React.",
+          "link": "https://github.com/Tons1212/Kasa",
+          "image": "../kasa.png",
+          "additionalInfo": "Kasa est le premier projet React que j'ai réalisé dans le cadre de ma formation d'intégrateur web.",
+          "objectives": "A partir de spécifiations fournies, j'ai réalisé une application de location immobilière. L'utilisation des bibliothèques React et React Router m'a permis de créer une interface utilisateur dynamique et interactive, et Sass de faciliter la gestion des styles. Les données sur les logements sont importées à partir d'un fichier Json fourni pour de meilleures performances et une facilité de mise à jour.",
+          "technologies": [
+              "../react.jpg",
+              "../react-router.png",
+              "../sass.png",
+              "../github.jpg"
+            ]        
+          },
+        {
+          "title": "Nina Carducci",
+          "description": "Optimisation du référencement SEO du site d'une photographe professionnelle.",
+          "link": "https://github.com/Tons1212/Nina-Carducci",
+          "image": "../nina.webp",
+          "additionalInfo": "Amélioration des performances, de l'accessibilité et des bonnes pratiques du site pour un meilleur référencement.",
+          "objectives": "Les audits effectués m'ont permis d'identifier et d'optimiser le code de l'application. En réduisant le poids des images, en minifiant les fichiers CSS et en intégrant des balises de référencement, j'ai pu significativement améliorer les performances du site. Enfin, j'ai édité un rapport pour le client, expliquant les modifications éffectuées et leurs impacts sur l'application. ",
+          "technologies": [
+              "../lighthouse.png",
+              "../wave.png",
+              "../github.jpg"
+            ]
+        },
+        {
+          "title": "Argent Bank",
+          "description": "Création d'une interface utilisateur sécurisée pour une application bancaire avec React et Redux.",
+          "link": "https://github.com/Tons1212/Argent-Bank",
+          "image": "../bank-tree.png",
+          "additionalInfo": "Argent Bank est un projet réalisé dans le cadre de ma formation d'intégrateur web chez OpenClassrooms. ",
+          "objectives": "Mise en place d'une interface utilisateur avec un système d'authentification sécurisé permettant la modification du pseudo de l'utilisateur une fois celui-ci connecté. Réalisation d'un document via Swagger, décrivant les routes API côté back-end, qui permettent à l'utilisateur d'effectuer certaines transactions personnelles type consultation d'une transactions et...",
+          "technologies": [
+              "../react.jpg",
+              "../redux.png",
+              "../react-router.png",
+              "../github.jpg"
+            ]
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contactez-moi",
+      "text": "N'hésitez pas à me contacter via mail ou téléphone ci dessous, ou en complétant le formulaire de contact.",
+      "name": "Nom :",
+      "firstName": "Prénom :",
+      "phone": "Téléphone :",
+      "mail": "Email :",
+      "object": "Objet :",
+      "message": "Message :",
+      "submit": "Envoyer"
+    },
+    "footer": {
+      "rights": "Tous droits réservés."
+    }
+  }

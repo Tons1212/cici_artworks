@@ -1,0 +1,130 @@
+.lines {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  margin: auto;
+  width: 90vw;
+
+  .line {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 15vh;
+      width: 100%;
+      top: -50%;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+      animation: drop 4s 0s infinite;
+      animation-fill-mode: forwards;
+      animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+    }
+
+    &:nth-child(1) {
+      margin-left: -25%;
+      &::after {
+        animation-delay: 2s;
+      }
+    }
+
+    &:nth-child(3) {
+      margin-left: 25%;
+      &::after {
+        animation-delay: 2.5s;
+      }
+    }
+  }
+}
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    
+    h2 {
+      position: relative;
+      margin: 60px 0 60px;
+      display: inline-block;
+      @media (max-width: 768px){
+        margin: 30px 0 30px;
+      }
+  
+      &::before,
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 150px; /* Longueur des lignes */
+        height: 1px; /* Épaisseur de la ligne */
+        background-color: $textColor; /* Couleur des lignes */
+        vertical-align: middle;
+      }
+  
+      &::before {
+        margin-right: 15px; /* Espace entre la ligne et le texte */
+      }
+  
+      &::after {
+        margin-left: 15px; /* Espace entre la ligne et le texte */
+      }
+    }
+    @media (max-width: 768px) {
+    h2::before,
+      h2::after { 
+      display: none;
+    }
+    }
+  
+    .presentation {
+      font-family: "Marcellus", serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 120px;
+      margin-bottom: 30px;
+      padding: 15px;
+      img {
+        width: 25%;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #ffffff; // Bordure fine et élégante
+        box-shadow: 0 5px 10px rgba(20, 54, 206, 0.7);
+        &:hover {
+          transform: rotate(-5deg) scale(1.1); // Légère rotation et agrandissement
+        box-shadow: 0 20px 30px rgba(20, 54, 206, 0.5); // Ombre plus marquée
+        filter: brightness(1.1); // Éclat de l'image
+      }
+      }
+  
+      p {
+        width: 42%;
+      }
+  
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px; 
+  
+        img, p {
+          width: 100%; 
+        }
+        
+        img {
+          max-width: 300px;
+        }
+      }
+      
+    }
+  }
+  
+  
+  

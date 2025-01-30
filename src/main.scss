@@ -1,0 +1,55 @@
+@import './Sass/variables.scss';
+@import './Sass/header.scss';
+@import './Sass/contactForm.scss';
+@import './Sass/about.scss';
+@import './Sass/footer.scss';
+@import './Sass/skills.scss';
+@import './Sass/portfolio.scss';
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(45deg, #0f2027, #010353, #071635, #100153, #18094d);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+  color: $textColor;
+  font-family: "Kosugi Maru", sans-serif;
+  font-size: 20px; 
+}
+
+h2 {
+  position: relative;
+  margin-bottom: 30px;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 150px; 
+    height: 1px; 
+    background-color: $textColor; 
+    vertical-align: middle;
+  }
+
+  &::before {
+    margin-right: 15px; 
+  }
+
+  &::after {
+    margin-left: 15px; 
+    }
+}
+@media (max-width: 768px) {
+h2::before,
+  h2::after { 
+  display: none;
+}
+}
+
+
+
