@@ -26,7 +26,7 @@ function About() {
         <img
           data-aos='zoom-in-down'
           src={selfie}
-          alt='profile Antoine GROSJAT'
+          alt='profile Cici_Artworks'
         />
         <p data-aos='zoom-in-down'>
           {t('about.text')}

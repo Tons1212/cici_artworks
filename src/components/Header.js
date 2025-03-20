@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import backgroundImg from '../assets/mohammad-rahmani-8qEB0fTe9Vw-unsplash.webp';
+import backgroundImg from '../assets/background.jpeg'
 import france from '../assets/Germany.png';
 import england from '../assets/royaume-uni.png';
 
@@ -72,10 +72,10 @@ function Header() {
         <a href='#about' className='button animate__animated animate__lightSpeedInRight'>{t('header.learnMore')}</a>
       </div>
       <div className='social animate__animated animate__lightSpeedInRight'>
-        <a href='https://github.com/Tons1212' target='_blank' rel='noreferrer' ><i class="fa-brands fa-github"></i></a>
-        <a href='mailto:tons.gr@gmail.com'><i class="fa-solid fa-at"></i></a>
-        <a href='https://www.linkedin.com/in/antoine-grosjat-4a0860329/' target='_blank' rel='noreferrer'><i class="fa-brands fa-linkedin"></i></a>
-      </div>  
+  <a href='https://www.instagram.com/ton_profil/' target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+</div>  
     </header>
   )
 }

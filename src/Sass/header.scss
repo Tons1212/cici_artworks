@@ -6,7 +6,6 @@ header {
   animation: fadein 0.5s ease-in-out;
   .background {
     position: absolute;
-    filter: brightness(60%) blur(3px);
     top: 0;
     left: 0;
     width: 100%;
@@ -174,9 +173,10 @@ header {
   .social {
     position: absolute;
     top: 68%;
-    left: 50%;
+    left: 61%;
     transform: translateX(-50%);
     display: flex;
+    justify-content: center;
     gap: 20px;
     animation-delay: 900ms;
     margin-left: -55px;
@@ -207,3 +207,159 @@ header {
     }
   }
 }
+
+// header {
+//   position: relative;
+//   width: 100%;
+//   height: 100vh; // Hauteur normale pour desktop
+//   overflow: hidden;
+//   animation: fadein 0.5s ease-in-out;
+
+//   .background {
+//     position: absolute;
+//     filter: brightness(60%) blur(3px);
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     z-index: -1;
+//   }
+
+//   .navLinks {
+//     background-color: $backgroundColor2;
+//     height: 40px;
+//     width: 100%;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     display: flex;
+//     justify-content: space-between;
+//     z-index: 1000;
+
+//     .navLinksContainer {
+//       display: flex;
+//       justify-content: center;
+//       flex-grow: 1;
+//       margin-left: 90px;
+
+//       a {
+//         color: $textColor;
+//         text-decoration: none;
+//         padding: 0 15px;
+//         line-height: 40px;
+//         font-size: 1.2rem;
+
+//         &:hover {
+//           background-color: $backgroundColor3;
+//         }
+//       }
+//     }
+//   }
+
+//   .intro {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     text-align: center;
+//     width: 100%;
+
+//     p {
+//       font-size: 35px;
+//       animation-delay: 300ms;
+//     }
+
+//     .wave {
+//       display: inline-block;
+//       animation: waveAnimation 1.5s ease-in-out infinite;
+//       transform-origin: bottom;
+//       position: relative;
+//       top: -10px;
+//     }
+
+//     .button {
+//       font-family: inherit;
+//       display: inline-block;
+//       background-color: $backgroundColor;
+//       color: $textColor;
+//       font-size: 1.2rem;
+//       padding: 10px 20px;
+//       border: 1px solid $backgroundColor;
+//       border-radius: 5px;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease;
+//       text-decoration: none;
+//       animation-delay: 600ms;
+
+//       &:hover {
+//         background-color: $backgroundColor2;
+//         border-color: $borderColor;
+//       }
+//     }
+//   }
+
+//   .social {
+//     position: absolute;
+//     top: 68%;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     display: flex;
+//     justify-content: center;
+//     gap: 20px;
+//     animation-delay: 900ms;
+
+//     a {
+//       color: $textColor;
+//       font-size: 25px;
+//       transition: transform 0.3s ease;
+//       display: inline-block;
+//       justify-content: center;
+//       animation: bounce 1.5s ease infinite;
+
+//       &:nth-child(1) {
+//         animation-delay: 0s;
+//       }
+
+//       &:nth-child(2) {
+//         animation-delay: 0.2s;
+//       }
+
+//       &:nth-child(3) {
+//         animation-delay: 0.4s;
+//       }
+//     }
+//   }
+
+//   // Responsive - Réduction de la hauteur du header
+//   @media (max-width: 768px) {
+//     height: 50vh; // Réduction de la hauteur du header en mobile
+
+//     .intro {
+//       top: 40%; // Ajustement pour éviter qu'il ne touche le bas
+//       p {
+//         font-size: 25px;
+//       }
+//       h1 {
+//         font-size: 30px;
+//       }
+//     }
+
+//     .social {
+//       top: 85%; // Descendre légèrement les icônes pour éviter qu'elles ne chevauchent l'intro
+//       gap: 15px;
+
+//       a {
+//         font-size: 20px;
+//       }
+//     }
+
+//     .navLinks {
+//       height: 35vh; // Ajustement du menu en mode mobile
+//       width: 50%;
+//       &.open {
+//         left: 50%;
+//       }
+//     }
+//   }
+// }
