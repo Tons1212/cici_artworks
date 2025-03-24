@@ -64,10 +64,9 @@ function Header() {
       <nav className="navLinks" id="navLinks">
         <div className="navLinksContainer">
           <Link to="/">{t('header.home')}</Link>
-          <Link to="/about">{t('header.about')}</Link>
-          <Link to="/skills">{t('header.skills')}</Link>
-          <Link to="/portfolio">{t('header.portfolio')}</Link>
-          <Link to="/contact">{t('header.contact')}</Link>
+          <a href="#about">{t('header.about')}</a>
+          <a href="#portfolio">{t('header.portfolio')}</a>
+          <a href="#contactForm">{t('header.contact')}</a>
           <Link to="/login" className="login-link">{t('header.login')}</Link>
         </div>
         <div className="language-switcher">

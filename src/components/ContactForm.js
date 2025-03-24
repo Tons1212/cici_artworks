@@ -25,7 +25,7 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('https://formspree.io/f/mzzpqekg', {
+    const response = await fetch('https://formspree.io/f/mvgkrbvv', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,14 +66,14 @@ const ContactForm = () => {
     <p>{t("contact.text")}</p>
     </div>
     <div className='contactDetails'>
-        <div className='contactItem'>
-          <i class="fa-solid fa-at"></i><a href='mailto:tons.gr@gmail.com'>tons.gr@gmail.com</a>
+        <div id='contactForm' className='contactItem'>
+          <i class="fa-solid fa-at"></i><a href='mailto::cpurwanti2@gmail.com'>cpurwanti2@gmail.com</a>
         </div>
         <div className='contactItem'>
           <i class="fa-solid fa-mobile-screen"></i><p>06 36 20 38 56</p>
         </div>
       </div>
-    <form id='contactForm' className='contactForm' onSubmit={handleSubmit}>
+    <form className='contactForm' onSubmit={handleSubmit}>
       <div className='formGroup'>
         <label htmlFor='nom'>
         {t("contact.name")}
