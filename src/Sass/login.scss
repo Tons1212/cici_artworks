@@ -3,30 +3,55 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; // Plein écran
+  height: 100vh;
   background-color: $backgroundColor;
-
   form {
     background: $backgroundColor;
     padding: 2rem;
-    width: 350px; // Largeur fixe sur grand écran
+    width: 350px; 
     text-align: center;
-
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     h2 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       color: $textColor;
+      font-size: 1.8rem;
     }
 
-    label {
-      display: block;
-      text-align: left;
-      font-weight: bold;
-      margin-top: 1rem;
-      color: $textColor;
+    .password-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid $borderColor;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .eye-icon {
+        position: absolute;
+        right: 10px;
+        top: 5%;
+        transform: translateY(-45%); // Ajustement fin pour éviter le décalage
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: $backgroundColor;
+        display: flex;
+        align-items: center;
+        justify-content:flex-end;
+
+        &:hover {
+          color: darken($textColor, 20%);
+        }
+      }
     }
 
     input {
-      width: 100%;
+      width: 94%;
       padding: 10px;
       margin-top: 0.5rem;
       border: 1px solid $borderColor;
@@ -38,25 +63,32 @@
       background: $backgroundColor;
       color: $textColor;
       padding: 10px;
-      border-color: $borderColor;
+      border: 1px solid $textColor;
       border-radius: 5px;
       font-size: 1rem;
       margin-top: 1.5rem;
       cursor: pointer;
       transition: background 0.3s ease;
+      width: 60%;
 
       &:hover {
         background: $backgroundColor;
       }
     }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
   }
 
-  // Responsive - Adaptation sur mobile
+  // Responsive pour mobile
   @media (max-width: 768px) {
     form {
-      width: 90%; // Prend toute la largeur dispo
+      width: 90%;
+      height: 30vh;
       padding: 1.5rem;
-      margin: 1em;
     }
 
     input, button {
