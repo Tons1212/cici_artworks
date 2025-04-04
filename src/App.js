@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './components/About';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Portofolio from './components/Portofolio';
+import Gallery from './components/Gallery';
 import Login from './components/Login'; // Import de la page Login
 import './main.scss';
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
+  const [token, setToken] = useState(localStorage.getItem("token")); // Ajout du state pour le token
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem("token"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   return (
     <Router>
       <div className="fade-in">
-        <Header />
+        <Header token={token} setToken={setToken} />
         <Routes>
           <Route path="/" element={
             <>
               <About />
-              <Portofolio />
+              <Gallery />
               <ContactForm />
               <Footer />
             </>
           } />
-          <Route path="/login" element={<Login />} /> {/* Ajout de la route login */}
+          <Route path="/login" element={<Login setToken={setToken} />} /> {/* Passe setToken en prop */}
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,69 @@
+.galleryContainer {
+    max-width: 1200px; /* Centre la galerie et limite la largeur */
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Plus flexible */
+    gap: 1rem;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
+.card {
+    background: $backgroundColor;
+    padding: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Permet l'adaptation */
+    margin: auto;
+    border: 1px solid $textColor;
+    position: relative; /* Permet de positionner la croix par rapport à la carte */
+}
+
+.gallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+/* ✅ Correction pour superposer la croix sur l’image */
+.delete-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    color: $textColor;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-button:hover {
+    background: rgba(255, 0, 0, 0.7); /* Changement au survol */
+}
+
+/* ✅ Pour éviter la déformation des aperçus */
+.preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-top: 10px;
+    border-radius: 8px;
+}

@@ -1,17 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaArrowLeft } from 'react-icons/fa'; // Import de l'icône flèche
 import backgroundImg from '../assets/background.jpeg';
-import france from '../assets/Germany.png';
+import germany from '../assets/Germany.png';
 import england from '../assets/royaume-uni.png';
+import logo from '../assets/Logo_Cici.jpeg';
 
 function Header() {
   const { t, i18n } = useTranslation();
   const location = useLocation(); // Récupère la route actuelle
+  const [token, setToken] = useState(localStorage.getItem("token")); // État pour le token
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Supprimer le token du localStorage
+    setToken(null); // Mettre à jour l'état pour déconnecter l'utilisateur
   };
 
   useEffect(() => {
@@ -22,16 +29,16 @@ function Header() {
       navLinks.classList.toggle('open');
       hamburger.classList.toggle('open');
     };
-
+    
     const handleClickOutside = (event) => {
       if (navLinks.classList.contains('open') && 
-          !navLinks.contains(event.target) && 
-          !hamburger.contains(event.target)) {
+      !navLinks.contains(event.target) && 
+      !hamburger.contains(event.target)) {
         navLinks.classList.remove('open');
         hamburger.classList.remove('open');
       }
     };
-
+    
     if (hamburger && navLinks) {
       hamburger.addEventListener('click', handleClick);
       document.addEventListener('click', handleClickOutside);
@@ -40,6 +47,15 @@ function Header() {
         document.removeEventListener('click', handleClickOutside);
       };
     }
+  }, []);
+  
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem("token"));
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   return (
@@ -62,16 +78,24 @@ function Header() {
       </div>
 
       <nav className="navLinks" id="navLinks">
+      <div className="logo">
+          <img src={logo} alt="Logo" className="logo-img" /> {/* Image du logo */}
+        </div>
         <div className="navLinksContainer">
           <Link to="/">{t('header.home')}</Link>
           <a href="#about">{t('header.about')}</a>
           <a href="#portfolio">{t('header.portfolio')}</a>
           <a href="#contactForm">{t('header.contact')}</a>
-          <Link to="/login" className="login-link">{t('header.login')}</Link>
+          {/* Afficher "Logout" si l'utilisateur est connecté */}
+          {token ? (
+            <button onClick={handleLogout} className="logout-link">{t('header.logout')}</button>
+          ) : (
+            <Link to="/login" className="login-link">{t('header.login')}</Link>
+          )}
         </div>
         <div className="language-switcher">
           <button onClick={() => changeLanguage('fr')}>
-            <img src={france} alt="Français" />
+            <img src={germany} alt="German" />
           </button>
           <button onClick={() => changeLanguage('en')}>
             <img src={england} alt="English" />
@@ -79,7 +103,6 @@ function Header() {
         </div>
       </nav>
       
-      {location.pathname === "/" && (
         <div className="intro">
           <h1 className="animate__animated animate__lightSpeedInRight">
             {t('header.intro')}<span className="wave">👋</span><br />
@@ -97,7 +120,6 @@ function Header() {
             </a>
           </div>
         </div>
-      )}
     </header>
   );
 }

@@ -4,6 +4,7 @@
     margin-top: 80px;
     p {
       font-family: "Marcellus", serif;
+      padding: 0 50px 0;
     }
     @media (max-width: 768px) {
       margin: 50px 0 30px;
@@ -85,7 +86,7 @@
       border: none;
       border-radius: 5px;
       font-size: 1rem;
-      background-color: rgb(210, 228, 252) ;
+      background-color: #FFFF;
       color: #333;
       box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1); 
       transition: border 0.3s ease;  

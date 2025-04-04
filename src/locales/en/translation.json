@@ -9,62 +9,19 @@
       "intro1": "I am Cici",
       "jobTitle": "self-made painter",
       "learnMore": "Learn more",
-      "login": "Login"
+      "login": "Login",
+      "logout": "Logout"
     },
     "about": {
     "title": "About me",
     "text": "Passionate about creating interactive and aesthetic websites, I followed training as a web integrator at Openclassrooms in 2023/2024, focusing on HTML, CSS and JavaScript. My ambition is to transform visual concepts into user experiences that are both engaging and functional.",
     "text1": "Always looking for new opportunities to learn and progress, I invest myself in web development with the constant objective of improving my skills, exploring new technologies and participating in innovative projects that push the digital design boundaries."
   },
-    "portfolio": {
-      "title": "Portfolio",
-      "viewMore": "View More",
-      "tech": "Technologies used :",
-      "gitlink": "Github link :",
-      "code": "View project code",
-      "projects": [
-        {
-          "title": "Kasa",
-          "description": "Creation of a real estate rental web application with React.",
-          "link": "https://github.com/Tons1212/Kasa",
-          "image": "../kasa.png",
-          "additionalInfo": "Kasa is the first React project that I carried out as part of my web integrator training.",
-          "objectives": "From the specifications provided, I created this real estate rental application. Using the React and React Router libraries allowed me to create a dynamic and interactive user interface, and Sass made it easier to manage styles. Housing data is imported from a provided Json file for better performance and ease of updating.",
-          "technologies": [
-              "../react.jpg",
-              "../react-router.png",
-              "../sass.png",
-              "../github.jpg"
-            ]
-        },
-        {
-          "title": "Nina Carducci",
-          "description": "SEO optimization of a photographer's website.",
-          "link": "https://github.com/Tons1212/Nina-Carducci",
-          "image": "../nina.webp",
-          "additionalInfo": "Improved site performance, accessibility and best practices for better SEO.",
-          "objectives": "The audits carried out allowed me to identify and optimize the application code. By reducing the weight of images, minifying CSS files and integrating SEO tags, I was able to significantly improve the site's performance. Finally, I produced a report for the client, explaining the modifications made and their impacts on the application.",
-          "technologies": [
-              "../lighthouse.png",
-              "../wave.png",
-              "../github.jpg"
-            ]
-        },
-        {
-          "title": "Argent Bank",
-          "description": "Creating a secure user interface for a banking application with React and Redux.",
-          "link": "https://github.com/Tons1212/Argent-Bank",
-          "image": "../bank-tree.png",
-          "additionalInfo": "Argent Bank is a project carried out as part of my web integrator training at OpenClassrooms.",
-          "objectives": "Implementation of a user interface with a secure authentication system, and creation of a document via Swagger, describing the API routes on the back-end side, which would allow the user to carry out certain personal transactions.",
-          "technologies": [
-              "../react.jpg",
-              "../redux.png",
-              "../react-router.png",
-              "../github.jpg"
-            ]
-        }
-      ]
+    "gallery": {
+      "title": "Artworks",
+      "addPaint": "Upload a new Artworks",
+      "add": "Add",
+      "close": "Close"
     },
     "contact": {
       "title": "Contact me",

@@ -9,63 +9,20 @@
     "intro1": "Ich bin Cici",
     "jobTitle": "Selfmade Maler",
     "learnMore": "Mehr erfahren",
-    "login": "Login"
+    "login": "Login",
+    "logout": "Logout"
   },
   "about": {
     "title": "Über mich",
     "text": "Leidenschaftlich für die Erstellung interaktiver und ästhetischer Websites, habe ich eine Ausbildung zum Web-Integrator bei OpenClassrooms in den Jahren 2023/2024 absolviert, mit Schwerpunkt auf HTML, CSS und JavaScript. Mein Ziel ist es, visuelle Konzepte in Benutzererlebnisse zu verwandeln, die sowohl ansprechend als auch funktional sind.",
     "text1": "Immer auf der Suche nach neuen Möglichkeiten zu lernen und mich weiterzuentwickeln, investiere ich mich in die Webentwicklung mit dem ständigen Ziel, meine Fähigkeiten zu verbessern, neue Technologien zu erkunden und an innovativen Projekten mitzuwirken, die die Grenzen des digitalen Designs erweitern."
   },
-  "portfolio": {
-    "title": "Portfolio",
-    "viewMore": "Mehr anzeigen",
-    "tech": "Verwendete Technologien:",
-    "gitlink": "GitHub-Link:",
-    "code": "Projektcode ansehen",
-    "projects": [
-      {
-        "title": "Kasa",
-        "description": "Erstellung einer Webanwendung für Immobilienvermietungen mit React.",
-        "link": "https://github.com/Tons1212/Kasa",
-        "image": "../kasa.png",
-        "additionalInfo": "Kasa ist das erste React-Projekt, das ich im Rahmen meiner Ausbildung zum Web-Integrator realisiert habe.",
-        "objectives": "Basierend auf den bereitgestellten Spezifikationen habe ich diese Immobilienvermietungsanwendung erstellt. Durch die Verwendung der React- und React-Router-Bibliotheken konnte ich eine dynamische und interaktive Benutzeroberfläche erstellen, und Sass erleichterte die Verwaltung der Styles. Die Immobiliendaten werden aus einer bereitgestellten JSON-Datei importiert, um die Leistung zu optimieren und Aktualisierungen zu erleichtern.",
-        "technologies": [
-            "../react.jpg",
-            "../react-router.png",
-            "../sass.png",
-            "../github.jpg"
-        ]
-      },
-      {
-        "title": "Nina Carducci",
-        "description": "SEO-Optimierung einer Fotografen-Website.",
-        "link": "https://github.com/Tons1212/Nina-Carducci",
-        "image": "../nina.webp",
-        "additionalInfo": "Verbesserung der Website-Performance, Barrierefreiheit und Best Practices für besseres SEO.",
-        "objectives": "Die durchgeführten Audits ermöglichten es mir, den Anwendungscode zu identifizieren und zu optimieren. Durch die Reduzierung der Bildgrößen, das Minifizieren von CSS-Dateien und die Integration von SEO-Tags konnte ich die Leistung der Website erheblich verbessern. Schließlich habe ich einen Bericht für den Kunden erstellt, der die vorgenommenen Änderungen und deren Auswirkungen auf die Anwendung erklärt.",
-        "technologies": [
-            "../lighthouse.png",
-            "../wave.png",
-            "../github.jpg"
-        ]
-      },
-      {
-        "title": "Argent Bank",
-        "description": "Erstellung einer sicheren Benutzeroberfläche für eine Bankanwendung mit React und Redux.",
-        "link": "https://github.com/Tons1212/Argent-Bank",
-        "image": "../bank-tree.png",
-        "additionalInfo": "Argent Bank ist ein Projekt, das ich im Rahmen meiner Web-Integrator-Ausbildung bei OpenClassrooms durchgeführt habe.",
-        "objectives": "Implementierung einer Benutzeroberfläche mit einem sicheren Authentifizierungssystem und Erstellung eines Dokuments über Swagger, das die API-Routen auf der Backend-Seite beschreibt, sodass der Benutzer bestimmte persönliche Transaktionen durchführen kann.",
-        "technologies": [
-            "../react.jpg",
-            "../redux.png",
-            "../react-router.png",
-            "../github.jpg"
-        ]
-      }
-    ]
-  },
+  "gallery": {
+      "title": "Kunstwerke",
+      "addPaint": "Neue Kunstwerke hochladen",
+      "add": "Hinzufügen",
+      "close": "Schließen"
+    },
   "contact": {
     "title": "Kontakt",
     "text": "Zögern Sie nicht, mich per E-Mail oder Telefon unten zu kontaktieren oder das Kontaktformular auszufüllen.",

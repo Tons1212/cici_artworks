@@ -27,12 +27,23 @@ header {
     display: flex;
     justify-content: space-between;
     z-index: 1000; 
-    
+    .logo {
+      position: fixed;
+      left: 1rem;  /* Espace depuis la gauche */
+      top: 3.7%;
+      transform: translateY(-50%); /* Centrer verticalement */
+      .logo-img {
+        width: 30px;  /* Ajuste la taille du logo selon tes besoins */
+        height: auto;
+        border-radius: 50%;
+      }
+    }
     .navLinksContainer{
       display: flex;
       justify-content: center;
       flex-grow: 1;
       margin-left: 90px;
+      z-index: 1000;
       a {
         color: $textColor;
         text-decoration: none;
@@ -73,7 +84,11 @@ header {
       background-color: $backgroundColor; 
       justify-content: center;
       flex-direction: column;
-      transition: left 0.4s ease; 
+      transition: left 0.4s ease;
+      .logo {
+        position: fixed;
+        top: 2.5%;
+      }
       .navLinksContainer{
         flex-direction: column;
         text-align: center;
@@ -99,7 +114,7 @@ header {
       background-color: transparent;
       top: 14px;
       right: 13px;
-      z-index: 1001;
+      z-index: 1100;
       cursor: pointer;
       div {
         width: 22px;
@@ -212,23 +227,18 @@ header {
   background: none;
   height: auto;
   .back-arrow {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 30px;
+    position: fixed;
+    top: 10px;
+    left: 60px;
+    font-size: 20px;
     color: $textColor;  // Utilise la couleur que tu souhaites pour la flèche
     cursor: pointer;
-    z-index: 1001;
+    z-index: 9999;
     transition: color 0.3s ease;
 
     @media (max-width: 768px) {
-      top: 15px; /* Ajuste un peu la position pour mobile */
-      left: 15px; /* Ajuste la position pour mobile */
+      top: 10px; /* Ajuste un peu la position pour mobile */
+      left: 60px; /* Ajuste la position pour mobile */
     }
-  }
-
-  /* Tu peux aussi personnaliser le fond du header quand la flèche est affichée */
-  .background {
-    filter: brightness(80%); /* Optionnel : Assombrir l'image de fond si nécessaire */
   }
 }

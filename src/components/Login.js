@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react"; // Import des icônes
@@ -10,19 +10,27 @@ const Login = ({ setToken }) => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const savedEmail = localStorage.getItem("email");
+        const savedPassword = localStorage.getItem("password");
+
+        if (savedEmail) setEmail(savedEmail);
+        if (savedPassword) setPassword(savedPassword);
+    }, []);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
-
+    
         try {
             const response = await axios.post("http://localhost:5000/login", { email, password });
             const token = response.data.token;
-
+    
             localStorage.setItem("token", token);
             setToken(token);
             navigate("/dashboard");
         } catch (err) {
-            setError("Email ou mot de passe incorrect");
+            setError(err.response?.data?.message || "Une erreur est survenue");
         }
     };
 
@@ -36,6 +44,7 @@ const Login = ({ setToken }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    autoComplete="email"
                 />
                 <div className="password-container">
                     <input
@@ -44,6 +53,7 @@ const Login = ({ setToken }) => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        autoComplete="current-password"
                     />
                     <button 
     type="button" 

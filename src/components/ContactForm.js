@@ -69,9 +69,6 @@ const ContactForm = () => {
         <div id='contactForm' className='contactItem'>
           <i class="fa-solid fa-at"></i><a href='mailto::cpurwanti2@gmail.com'>cpurwanti2@gmail.com</a>
         </div>
-        <div className='contactItem'>
-          <i class="fa-solid fa-mobile-screen"></i><p>06 36 20 38 56</p>
-        </div>
       </div>
     <form className='contactForm' onSubmit={handleSubmit}>
       <div className='formGroup'>

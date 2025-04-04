@@ -1,0 +1,33 @@
+.button {
+    font-family: inherit;
+    display: inline-block;
+    background-color: $backgroundColor;
+    color: $textColor;
+    width: 40%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: 1px solid $textColor;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    animation-delay: 600ms;
+    &:hover {
+      background-color: $backgroundColor2;
+      border-color: $borderColor;
+    }
+  }
+  @media (max-width: 768px) {
+    .button {
+      animation: pulseBorder 2s infinite;
+    }
+    h1 {
+      font-size: 35px;
+    }
+    p {
+      font-size: 25px;
+    }
+  }
