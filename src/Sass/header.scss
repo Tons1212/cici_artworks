@@ -162,6 +162,7 @@ header {
       display: inline-block;
       background-color: $backgroundColor;
       color: $textColor;
+      max-width: 35%;
       font-size: 1.2rem;
       padding: 10px 20px;
       border: 1px solid $textColor;
@@ -214,11 +215,6 @@ header {
   
       &:nth-child(3) {
         animation-delay: 0.4s;
-      }
-    }
-    @media (max-width: 768px) {
-      a {
-        margin-top: 10px;
       }
     }
   }

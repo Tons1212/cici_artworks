@@ -21,7 +21,8 @@
       "title": "Kunstwerke",
       "addPaint": "Neue Kunstwerke hochladen",
       "add": "Hinzufügen",
-      "close": "Schließen"
+      "close": "Schließen",
+      "chooseFile": "Wählen Sie eine Datei aus"
     },
   "contact": {
     "title": "Kontakt",

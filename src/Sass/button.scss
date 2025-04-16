@@ -3,7 +3,7 @@
     display: inline-block;
     background-color: $backgroundColor;
     color: $textColor;
-    width: 40%;
+    width: 50%;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -23,6 +23,7 @@
   @media (max-width: 768px) {
     .button {
       animation: pulseBorder 2s infinite;
+      width: 70%;
     }
     h1 {
       font-size: 35px;

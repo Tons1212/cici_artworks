@@ -21,7 +21,8 @@
       "title": "Artworks",
       "addPaint": "Upload a new Artworks",
       "add": "Add",
-      "close": "Close"
+      "close": "Close",
+      "chooseFile": "Select a file"
     },
     "contact": {
       "title": "Contact me",

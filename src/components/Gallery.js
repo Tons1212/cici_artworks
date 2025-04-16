@@ -68,14 +68,14 @@ const Gallery = () => {
       {t("gallery.addPaint")}
       </Button>
       {isModalOpen && (
-  <div className=" modal absolute mt-2 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow-lg p-4">
-    <div className="flex justify-between items-center mb-2">
+      <div className=" modal absolute mt-2 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow-lg p-4">
+      <div className="flex justify-between items-center mb-2">
       <h2 className="text-lg font-semibold">{t("gallery.addPaint")}</h2>
-      <button onClick={() => setIsModalOpen(false)} className="text-gray-600 hover:text-red-500 text-xl">
-        ✖
-      </button>
+        <button onClick={() => setIsModalOpen(false)} className="text-gray-600 hover:text-red-500 text-xl">
+          ✖
+        </button>
     </div>
-
+    <div className="inputs">
     <input
       type="text"
       placeholder="Name"
@@ -107,11 +107,12 @@ const Gallery = () => {
       className="w-full p-2 border rounded mb-2"
     />
 
-    {imagePreview && <img src={imagePreview} alt="Aperçu" className="preview-image mb-2" />}
+    {imagePreview && <img src={imagePreview} alt="Preview" className="preview-image mb-2" />}
 
     <Button onClick={handleAddPainting} className="w-full">
       {t("gallery.add")}
     </Button>
+  </div>
   </div>
 )}
       <div className="gallery-grid">
