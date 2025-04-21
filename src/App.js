@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './components/About';
 import ContactForm from './components/ContactForm';
-import Footer from './components/Footer';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Gallery from './components/Gallery';
 import { CartProvider } from "./components/CartContext";
 import { AuthProvider } from "./components/AuthContext";
@@ -12,7 +12,6 @@ import './main.scss';
 import './i18n';
 
 function App() {
-  // eslint-disable-next-line no-unused-vars
   const [token, setToken] = useState(localStorage.getItem("token")); // Ajout du state pour le token
 
   useEffect(() => {
@@ -27,19 +26,20 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
+        {/* Utilisation de BrowserRouter avec basename pour GitHub Pages */}
         <Router>
           <div className="fade-in">
             <Header token={token} setToken={setToken} />
-              <Routes>
-                <Route path="/" element={
-                <>
-                <About />
-                <Gallery />
-                <ContactForm />
-                <Footer />
-                </>
-              } />
-              <Route path="/login" element={<Login setToken={setToken} />} /> {/* Passe setToken en prop */}
+            <Routes>
+            <Route path="/" element={
+            <>
+              <About />
+              <Gallery />
+              <ContactForm />
+              <Footer />
+            </>
+  } />
+  <Route path="/login" element={<Login setToken={setToken} />} />
             </Routes>
           </div>
         </Router>

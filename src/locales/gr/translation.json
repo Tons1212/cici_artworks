@@ -2,12 +2,10 @@
   "header": {
     "home": "Startseite",
     "about": "Über mich",
-    "skills": "Fähigkeiten",
-    "portfolio": "Portfolio",
+    "gallery": "Kunstwerke",
     "contact": "Kontakt",
-    "intro": "Hallo!",
-    "intro1": "Ich bin Cici",
-    "jobTitle": "Selfmade Maler",
+    "intro": "Willkommen in meiner Kunstgalerie!",
+    "intro1": "Betreten Sie ein Universum, in dem jeder Pinselstrich eine Emotion offenbart, jede Farbe eine Geschichte flüstert und jede Leinwand zu einem Moment wird, der zwischen Traum und Realität schwebt.",
     "learnMore": "Mehr erfahren",
     "login": "Login",
     "logout": "Logout"

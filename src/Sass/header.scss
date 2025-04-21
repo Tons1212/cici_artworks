@@ -157,16 +157,12 @@ header {
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
+    font-style: italic;
     p {
-      font-size: 35px;
+      font-size: 20px;
+      font-style: italic;
       animation-delay: 300ms;
-    }
-    .wave {
-      display: inline-block;
-      animation: waveAnimation 1.5s ease-in-out infinite;
-      transform-origin: bottom;
-      position: relative;
-      top: -10px;
+      padding: 0 70px;
     }
     .button {
       font-family: inherit;
@@ -239,7 +235,7 @@ header {
     top: 10px;
     left: 60px;
     font-size: 20px;
-    color: $textColor;  // Utilise la couleur que tu souhaites pour la flèche
+    color: $textColor2;  // Utilise la couleur que tu souhaites pour la flèche
     cursor: pointer;
     z-index: 9999;
     transition: color 0.3s ease;

@@ -34,7 +34,7 @@ function About() {
   };
 
   return (
-    <section id='about' className='about lines'>
+    <section id="about" className='about lines'>
       <div className="line"></div>
       <div className="line"></div>
       <div className="line"></div>

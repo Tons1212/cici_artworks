@@ -66,7 +66,7 @@ const Gallery = () => {
   };
 
   return (
-    <div className="galleryContainer">
+    <div id="gallery" className="galleryContainer">
       <h2 className="text-3xl font-bold text-center mb-6">{t("gallery.title")}</h2>
       {token && (
   <Button onClick={() => setIsModalOpen(true)} className="mb-4">

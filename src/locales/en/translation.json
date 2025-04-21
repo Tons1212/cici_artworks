@@ -2,12 +2,10 @@
     "header": {
       "home": "Home",
       "about": "About",
-      "skills": "Skills",
-      "portfolio": "Portfolio",
+      "gallery": "My Artworks",
       "contact": "Contact",
-      "intro": "Hello !",
-      "intro1": "I am Cici",
-      "jobTitle": "self-made painter",
+      "intro": "Welcome to my Art gallery!",
+      "intro1": "Enter a univers where every brushstroke reveals an emotion, every color whispers a story, and every canvas becomes a moment suspended between dream and reality.",
       "learnMore": "Learn more",
       "login": "Login",
       "logout": "Logout"
