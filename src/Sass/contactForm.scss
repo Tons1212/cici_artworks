@@ -72,7 +72,7 @@
     }    
     label {
       font-size: 1.2rem;
-      color: $textColor;
+      color: $textColor2;
     }
   
     input, 
@@ -116,6 +116,7 @@
       &:hover {
         background-color: $backgroundColor2;
         border-color: $borderColor;
+        color: $textColor2;
       }
       @media (max-width: 768px) {
         animation: pulseBorder 2s infinite;

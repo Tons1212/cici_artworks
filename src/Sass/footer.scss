@@ -10,7 +10,7 @@
       justify-content: center;
       gap: 15px;
     a {
-      color: $textColor;
+      color: $textColor2;
       font-size: 25px;
       transition: transform 0.3s ease;
       animation: bounce 1.5s infinite; 
@@ -29,5 +29,6 @@
   }
   p {
     margin: 20px;
+    color: $textColor2;
   }
 }

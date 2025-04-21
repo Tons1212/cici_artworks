@@ -135,7 +135,7 @@ const Gallery = () => {
                 <p className="text-lg font-bold mt-2">{painting.price}</p>
                 <Button
             onClick={() => addToCart(painting)} // Ajoute la peinture au panier
-            className="mt-2 w-full bg-green-600 text-white hover:bg-green-700"
+            className="addButton mt-2 w-full bg-green-600 text-white hover:bg-green-700"
           >
             {t("gallery.addToCart") || "Ajouter au panier"}
           </Button>

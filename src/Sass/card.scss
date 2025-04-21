@@ -11,4 +11,11 @@
     h2::after { 
     display: none;
     }
+    p {
+        display: flex;
+        justify-content: center;
+    }
+    .addButton {
+        width: 100%;
+    }
 }

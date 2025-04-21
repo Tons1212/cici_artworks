@@ -18,6 +18,13 @@
     "text1": "Ich arbeite in verschiedenen Stilen, darunter abstrakt, abstrakter Realismus, Semi-Porträts und Illustrationen. Ich weiß, dass es viele verschiedene Malstile gibt, aber ich genieße diese Vielfalt. Mich auf einen einzigen Stil zu beschränken, kann etwas eintönig sein. Deshalb freue ich mich darauf, meine Ideen durch meine Kunst zu teilen.",
     "text2": "Ich hoffe aufrichtig, dass meine Bilder Ihnen Freude und Glück bringen."
   },
+  "cart": {
+      "title": "Warenkorb",
+      "empty": "Ihr Warenkorb ist leer",
+      "total": "Gesamt:",
+      "delete": "Löschen",
+      "checkout": "Zur Kasse"
+    },
   "gallery": {
       "title": "Kunstwerke",
       "addPaint": "Neue Kunstwerke hochladen",

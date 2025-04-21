@@ -53,7 +53,7 @@ header {
       margin-left: 90px;
       z-index: 1000;
       a, button {
-        color: $textColor;
+        color: $textColor2;
         background-color: transparent;
         border: none;
         text-decoration: none;
@@ -185,6 +185,7 @@ header {
       &:hover {
         background-color: $backgroundColor2;
         border-color: $borderColor;
+        color: $textColor2;
       }
     }
     @media (max-width: 768px) {

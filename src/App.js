@@ -9,6 +9,7 @@ import { CartProvider } from "./components/CartContext";
 import { AuthProvider } from "./components/AuthContext";
 import Login from './components/Login'; // Import de la page Login
 import './main.scss';
+import './i18n';
 
 function App() {
   // eslint-disable-next-line no-unused-vars

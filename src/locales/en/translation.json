@@ -18,6 +18,13 @@
     "text1": "I create in various styles, including abstract, abstract realism, semi-portrait forms, and illustrations. I understand that there are many different styles of painting, but I enjoy this diversity. I find that limiting myself to a single style can be a bit monotonous. And here I'am excited to share my ideas through my art.",
     "text2": "I sincerely hope that my paintings bring you joy and happiness."
   },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is empty",
+      "total": "Total:",
+      "delete": "Delete",
+      "checkout": "Checkout"
+    },
     "gallery": {
       "title": "Artworks",
       "addPaint": "Upload a new Artworks",
