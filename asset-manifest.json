@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/cici_artworks/static/css/main.417730f7.css",
+    "main.js": "/cici_artworks/static/js/main.b60265d3.js",
+    "static/js/453.78732898.chunk.js": "/cici_artworks/static/js/453.78732898.chunk.js",
+    "static/media/background.jpeg": "/cici_artworks/static/media/background.bbad8db684635a479c3c.jpeg",
+    "static/media/bg3.jpeg": "/cici_artworks/static/media/bg3.4012215d3e97de090352.jpeg",
+    "static/media/bg2.jpeg": "/cici_artworks/static/media/bg2.ee86f76a2421a7beb11c.jpeg",
+    "static/media/royaume-uni.png": "/cici_artworks/static/media/royaume-uni.cb459185f48de1ccc64b.png",
+    "static/media/Logo_Cici.jpeg": "/cici_artworks/static/media/Logo_Cici.920339e0683e33c3d9e9.jpeg",
+    "index.html": "/cici_artworks/index.html",
+    "main.417730f7.css.map": "/cici_artworks/static/css/main.417730f7.css.map",
+    "main.b60265d3.js.map": "/cici_artworks/static/js/main.b60265d3.js.map",
+    "453.78732898.chunk.js.map": "/cici_artworks/static/js/453.78732898.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.417730f7.css",
+    "static/js/main.b60265d3.js"
+  ]
+}
