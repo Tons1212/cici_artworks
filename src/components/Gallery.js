@@ -3,15 +3,19 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { motion } from "framer-motion";
+import { useCart } from "../components/CartContext";
+import { useAuth } from "../components/AuthContext"; // Ajoute ça si pas déjà présent
 
 
 const Gallery = () => {
   const { t } = useTranslation();
-
+  const { addToCart } = useCart();
   const [paintings, setPaintings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newPainting, setNewPainting] = useState({ name: "", description: "", price: "", image: "" });
   const [imagePreview, setImagePreview] = useState(null);
+  const { token } = useAuth(); // Accès au token via contexte
+
 
   // ✅ Charger les peintures sauvegardées dès le premier rendu
   useEffect(() => {
@@ -63,10 +67,12 @@ const Gallery = () => {
 
   return (
     <div className="galleryContainer">
-      <h1 className="text-3xl font-bold text-center mb-6">{t("gallery.title")}</h1>
-      <Button onClick={() => setIsModalOpen(true)} className="mb-4">
-      {t("gallery.addPaint")}
-      </Button>
+      <h2 className="text-3xl font-bold text-center mb-6">{t("gallery.title")}</h2>
+      {token && (
+  <Button onClick={() => setIsModalOpen(true)} className="mb-4">
+    {t("gallery.addPaint")}
+  </Button>
+)}
       {isModalOpen && (
       <div className=" modal absolute mt-2 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow-lg p-4">
       <div className="flex justify-between items-center mb-2">
@@ -127,6 +133,12 @@ const Gallery = () => {
                 <h2 className="text-xl font-semibold">{painting.name}</h2>
                 <p className="text-gray-600 mt-2">{painting.description}</p>
                 <p className="text-lg font-bold mt-2">{painting.price}</p>
+                <Button
+            onClick={() => addToCart(painting)} // Ajoute la peinture au panier
+            className="mt-2 w-full bg-green-600 text-white hover:bg-green-700"
+          >
+            {t("gallery.addToCart") || "Ajouter au panier"}
+          </Button>
               </CardContent>
             </Card>
           </motion.div>

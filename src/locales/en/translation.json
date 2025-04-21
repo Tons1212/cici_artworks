@@ -14,15 +14,17 @@
     },
     "about": {
     "title": "About me",
-    "text": "Passionate about creating interactive and aesthetic websites, I followed training as a web integrator at Openclassrooms in 2023/2024, focusing on HTML, CSS and JavaScript. My ambition is to transform visual concepts into user experiences that are both engaging and functional.",
-    "text1": "Always looking for new opportunities to learn and progress, I invest myself in web development with the constant objective of improving my skills, exploring new technologies and participating in innovative projects that push the digital design boundaries."
+    "text": "For me, painting serves as a means of communication with myself, allowing me to express my feelings while embracing my creativity. I aspire to encourage others through my artwork, spreading positivity, spirit, love, and joy. My paintings are primarily inspired by human life, the processes of life, culture, and nature, with the intention of motivating people. Painting has always been my main passion.",
+    "text1": "I create in various styles, including abstract, abstract realism, semi-portrait forms, and illustrations. I understand that there are many different styles of painting, but I enjoy this diversity. I find that limiting myself to a single style can be a bit monotonous. And here I'am excited to share my ideas through my art.",
+    "text2": "I sincerely hope that my paintings bring you joy and happiness."
   },
     "gallery": {
       "title": "Artworks",
       "addPaint": "Upload a new Artworks",
       "add": "Add",
       "close": "Close",
-      "chooseFile": "Select a file"
+      "chooseFile": "Select a file",
+      "addToCart": "Add to cart"
     },
     "contact": {
       "title": "Contact me",

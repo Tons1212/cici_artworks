@@ -1,24 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FaArrowLeft } from 'react-icons/fa'; // Import de l'icône flèche
+import { FaArrowLeft } from 'react-icons/fa';
 import backgroundImg from '../assets/background.jpeg';
+import bg2 from '../assets/bg2.jpeg';
+import bg3 from '../assets/bg3.jpeg';
 import germany from '../assets/Germany.png';
 import england from '../assets/royaume-uni.png';
 import logo from '../assets/Logo_Cici.jpeg';
+import CartDrawer from "../components/CartDrawer";
+import { useAuth } from "../components/AuthContext"; // Import du contexte d'authentification
 
 function Header() {
   const { t, i18n } = useTranslation();
   const location = useLocation(); // Récupère la route actuelle
-  const [token, setToken] = useState(localStorage.getItem("token")); // État pour le token
+  const { token, logout } = useAuth();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartRef = useRef(null);
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const backgrounds = [backgroundImg, bg2, bg3];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBgIndex((prevIndex) => (prevIndex + 1) % backgrounds.length);
+    }, 4000); // 4 secondes, ajuste comme tu veux
+
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Fermer le panier si clic en dehors
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isCartOpen && cartRef.current && !cartRef.current.contains(event.target)) {
+        setIsCartOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isCartOpen]);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Supprimer le token du localStorage
-    setToken(null); // Mettre à jour l'état pour déconnecter l'utilisateur
   };
 
   useEffect(() => {
@@ -48,29 +72,26 @@ function Header() {
       };
     }
   }, []);
-  
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setToken(localStorage.getItem("token"));
-    };
-  
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
 
   return (
     <header className={location.pathname === "/login" ? "header-login" : ""}>
-      {/* Flèche de retour affichée uniquement sur la page login */}
       {location.pathname === "/login" && (
         <Link to="/" className="back-arrow">
           <FaArrowLeft />
         </Link>
       )}
 
-      {location.pathname !== "/login" && ( 
-        <img className="background" src={backgroundImg} alt="background" />
-      )}
-      
+      {location.pathname !== "/login" &&
+        backgrounds.map((bg, index) => (
+          <img
+            key={index}
+            src={bg}
+            className={`carousel-bg ${index === currentBgIndex ? 'active' : ''}`}
+            alt={`background-${index}`}
+          />
+        ))
+      }
+
       <div className="hamburger" id="hamburger">
         <div></div>
         <div></div>
@@ -78,21 +99,29 @@ function Header() {
       </div>
 
       <nav className="navLinks" id="navLinks">
-      <div className="logo">
-          <img src={logo} alt="Logo" className="logo-img" /> {/* Image du logo */}
-        </div>
+        <Link to="/" className="logo">
+          <img src={logo} alt="Logo" className="logo-img" />
+        </Link>
         <div className="navLinksContainer">
           <Link to="/">{t('header.home')}</Link>
           <a href="#about">{t('header.about')}</a>
           <a href="#portfolio">{t('header.portfolio')}</a>
           <a href="#contactForm">{t('header.contact')}</a>
-          {/* Afficher "Logout" si l'utilisateur est connecté */}
           {token ? (
-            <button onClick={handleLogout} className="logout-link">{t('header.logout')}</button>
+            <button onClick={logout} className="navLinksContainer-button login-link">{t('header.logout')}</button>
           ) : (
             <Link to="/login" className="login-link">{t('header.login')}</Link>
           )}
         </div>
+
+        <div className="relative" ref={cartRef}>
+          <button onClick={() => setIsCartOpen((prev) => !prev)} className="cart">
+            🛒
+          </button>
+          {/* Ajoute la classe "open" quand le panier est ouvert */}
+          <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+        </div>
+
         <div className="language-switcher">
           <button onClick={() => changeLanguage('fr')}>
             <img src={germany} alt="German" />
@@ -102,24 +131,27 @@ function Header() {
           </button>
         </div>
       </nav>
-      
-        <div className="intro">
-          <h1 className="animate__animated animate__lightSpeedInRight">
-            {t('header.intro')}<span className="wave">👋</span><br />
-            {t('header.intro1')}
-          </h1>
-          <p className="animate__animated animate__lightSpeedInRight">
-            {t('header.jobTitle')}
-          </p>
-          <a href="#about" className="button animate__animated animate__lightSpeedInRight">
-            {t('header.learnMore')}
+
+      <div className="intro">
+        <h1 className="animate__animated animate__lightSpeedInRight">
+          {t('header.intro')}<span className="wave">👋</span><br />
+          {t('header.intro1')}
+        </h1>
+        <p className="animate__animated animate__lightSpeedInRight">
+          {t('header.jobTitle')}
+        </p>
+        <a href="#about" className="button animate__animated animate__lightSpeedInRight">
+          {t('header.learnMore')}
+        </a>
+        <div className="social animate__animated animate__lightSpeedInRight">
+          <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
+            <i className="fa-brands fa-instagram"></i>
           </a>
-          <div className="social animate__animated animate__lightSpeedInRight">
-            <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
-              <i className="fa-brands fa-instagram"></i>
-            </a>
-          </div>
+          <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
+            <i className="fa-brands fa-tiktok"></i>
+          </a>
         </div>
+      </div>
     </header>
   );
 }

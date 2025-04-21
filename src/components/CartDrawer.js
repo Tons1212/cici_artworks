@@ -1,16 +1,22 @@
 // src/components/CartDrawer.jsx
 import React from "react";
-import { useCart } from "../context/CartContext";
+import { useCart } from "./CartContext";
 
 const CartDrawer = ({ isOpen, onClose }) => {
-  const { cartItems, removeFromCart } = useCart();
+    const { cartItems, removeFromCart } = useCart();
+    if (!isOpen) return null;
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className={`fixed top-0 right-0 h-full bg-white shadow-lg w-80 z-50 transition-transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
-      <div className="p-4 flex justify-between items-center border-b">
-        <h2 className="text-xl font-bold">Votre panier</h2>
+    <div
+  className={`absolute top-full right-0 mt-2 w-80 bg-white border rounded-lg shadow-lg z-50 ${
+    isOpen ? "block" : "hidden"
+  }`}
+  onClick={(e) => e.stopPropagation()}
+>
+    <div className="p-4 flex justify-between items-center border-b">
+        <h3 className="text-xl font-bold">Cart</h3>
         <button onClick={onClose} className="text-red-500 text-2xl">✖</button>
       </div>
 

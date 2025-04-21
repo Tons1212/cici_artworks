@@ -11,6 +11,9 @@ function Footer() {
       <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
         <i className="fa-brands fa-instagram"></i>
       </a>
+      <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-tiktok"></i>
+      </a>
   </div>
   </div>
   )

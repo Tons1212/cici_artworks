@@ -14,15 +14,17 @@
   },
   "about": {
     "title": "Über mich",
-    "text": "Leidenschaftlich für die Erstellung interaktiver und ästhetischer Websites, habe ich eine Ausbildung zum Web-Integrator bei OpenClassrooms in den Jahren 2023/2024 absolviert, mit Schwerpunkt auf HTML, CSS und JavaScript. Mein Ziel ist es, visuelle Konzepte in Benutzererlebnisse zu verwandeln, die sowohl ansprechend als auch funktional sind.",
-    "text1": "Immer auf der Suche nach neuen Möglichkeiten zu lernen und mich weiterzuentwickeln, investiere ich mich in die Webentwicklung mit dem ständigen Ziel, meine Fähigkeiten zu verbessern, neue Technologien zu erkunden und an innovativen Projekten mitzuwirken, die die Grenzen des digitalen Designs erweitern."
+    "text": "Für mich ist Malerei ein Mittel zur Kommunikation mit mir selbst. Sie ermöglicht es mir, meine Gefühle auszudrücken und gleichzeitig meiner Kreativität freien Lauf zu lassen. Ich möchte andere durch meine Kunst ermutigen und positive Energie, Lebensfreude, Liebe und Freude verbreiten. Meine Bilder sind vor allem vom menschlichen Leben, seinen Prozessen, seiner Kultur und der Natur inspiriert und sollen Menschen motivieren. Malen war schon immer meine große Leidenschaft.",
+    "text1": "Ich arbeite in verschiedenen Stilen, darunter abstrakt, abstrakter Realismus, Semi-Porträts und Illustrationen. Ich weiß, dass es viele verschiedene Malstile gibt, aber ich genieße diese Vielfalt. Mich auf einen einzigen Stil zu beschränken, kann etwas eintönig sein. Deshalb freue ich mich darauf, meine Ideen durch meine Kunst zu teilen.",
+    "text2": "Ich hoffe aufrichtig, dass meine Bilder Ihnen Freude und Glück bringen."
   },
   "gallery": {
       "title": "Kunstwerke",
       "addPaint": "Neue Kunstwerke hochladen",
       "add": "Hinzufügen",
       "close": "Schließen",
-      "chooseFile": "Wählen Sie eine Datei aus"
+      "chooseFile": "Wählen Sie eine Datei aus",
+      "addToCart": "In den Warenkorb"
     },
   "contact": {
     "title": "Kontakt",

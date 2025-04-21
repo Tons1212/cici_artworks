@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Gallery from './components/Gallery';
 import { CartProvider } from "./components/CartContext";
+import { AuthProvider } from "./components/AuthContext";
 import Login from './components/Login'; // Import de la page Login
 import './main.scss';
 
@@ -23,24 +24,26 @@ function App() {
   }, []);
 
   return (
-    <CartProvider>
-    <Router>
-      <div className="fade-in">
-        <Header token={token} setToken={setToken} />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <About />
-              <Gallery />
-              <ContactForm />
-              <Footer />
-            </>
-          } />
-          <Route path="/login" element={<Login setToken={setToken} />} /> {/* Passe setToken en prop */}
-        </Routes>
-      </div>
-    </Router>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <div className="fade-in">
+            <Header token={token} setToken={setToken} />
+              <Routes>
+                <Route path="/" element={
+                <>
+                <About />
+                <Gallery />
+                <ContactForm />
+                <Footer />
+                </>
+              } />
+              <Route path="/login" element={<Login setToken={setToken} />} /> {/* Passe setToken en prop */}
+            </Routes>
+          </div>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

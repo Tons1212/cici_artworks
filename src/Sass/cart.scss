@@ -1,0 +1,14 @@
+.cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    margin-top: 5px;
+    @media (max-width: 768px) {
+        position: relative;
+        left: 37%;
+        bottom: 16px;
+      }
+}
