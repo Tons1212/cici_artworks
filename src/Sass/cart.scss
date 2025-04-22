@@ -6,6 +6,9 @@
     border: none;
     font-size: 18px;
     margin-top: 5px;
+    &:hover {
+      cursor: pointer;
+    }
     @media (max-width: 768px) {
         position: relative;
         left: 37%;

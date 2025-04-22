@@ -80,8 +80,10 @@ header {
         border: none;
         img {
           width: 25px;
+          height: 17px;
           &:hover{
             cursor: pointer;
+            border: solid 1px $textColor2;
           }
         }
       }
@@ -190,10 +192,11 @@ header {
         animation: pulseBorder 2s infinite;
       }
       h1 {
-        font-size: 35px;
+        font-size: 25px;
       }
       p {
-        font-size: 25px;
+        font-size: 15px;
+        padding: 20px;
       }
     }
   }
