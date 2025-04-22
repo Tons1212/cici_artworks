@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaArrowLeft } from 'react-icons/fa';
 import backgroundImg from '../assets/background.jpeg';
@@ -19,6 +19,25 @@ function Header() {
   const cartRef = useRef(null);
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const backgrounds = [backgroundImg, bg2, bg3];
+  const navigate = useNavigate();
+
+const navigateWithScroll = (anchor) => {
+  if (location.pathname !== '/') {
+    navigate('/', { replace: false });
+    // Delay scroll to ensure DOM is ready
+    setTimeout(() => {
+      const element = document.getElementById(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100); // petite latence pour attendre le DOM
+  } else {
+    const element = document.getElementById(anchor);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
 
   // Scroll en haut
   const scrollToTop = () => {
@@ -126,9 +145,10 @@ function Header() {
           >
             {t('header.home')}
           </Link>
-          <a href="#about">{t('header.about')}</a>
-          <a href="#gallery">{t('header.gallery')}</a>
-          <a href="#contactForm">{t('header.contact')}</a>
+          <button onClick={() => navigateWithScroll('about')}>{t('header.about')}</button>
+          <button onClick={() => navigateWithScroll('gallery')}>{t('header.gallery')}</button>
+          <button onClick={() => navigateWithScroll('contactForm')}>{t('header.contact')}</button>
+
           {token ? (
             <button onClick={logout} className="navLinksContainer-button login-link">
               {t('header.logout')}

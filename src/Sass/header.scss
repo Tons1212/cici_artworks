@@ -63,6 +63,7 @@ header {
         font-family: "Kosugi Maru", sans-serif;
         &:hover {
           background-color: $backgroundColor3;
+          cursor: pointer;
         }
       }
     }
@@ -108,7 +109,7 @@ header {
           padding: 5px;
           font-size: 1.2rem;
           color: $textColor;
-        }
+        }        
       }
 
       &.open {
