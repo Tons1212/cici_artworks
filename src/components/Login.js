@@ -25,7 +25,7 @@ const Login = () => {
         setError("");
 
         try {
-            const response = await axios.post("https://cici-backend.onrender.com", { email, password });
+            const response = await axios.post("https://cici-backend.onrender.com/login", { email, password });
             const token = response.data.token;
 
             login(token); // ✅ Utilise le contexte pour connecter
