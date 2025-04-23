@@ -12,7 +12,7 @@ function About() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      offset: 80,
+      offset: 10,
     });
   }, []);
 

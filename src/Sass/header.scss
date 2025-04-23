@@ -153,53 +153,107 @@ header {
     }
   }
 
-  .intro {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    font-style: italic;
-    p {
-      font-size: 20px;
-      font-style: italic;
-      animation-delay: 300ms;
-      padding: 0 70px;
-    }
-    .button {
-      font-family: inherit;
-      display: inline-block;
-      background-color: $backgroundColor;
-      color: $textColor;
-      max-width: 35%;
-      font-size: 1.2rem;
-      padding: 10px 20px;
-      border: 1px solid $textColor;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-      animation-delay: 600ms;
-      &:hover {
-        background-color: $backgroundColor2;
-        border-color: $borderColor;
-        color: $textColor2;
+  .intro-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  
+    .profile-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+  
+      img {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       }
     }
-    @media (max-width: 768px) {
-      .button {
-        animation: pulseBorder 2s infinite;
-      }
+  
+    .profile-content {
+      flex: 2;
+      text-align: left;
+  
       h1 {
-        font-size: 25px;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
       }
+  
       p {
-        font-size: 15px;
-        padding: 20px;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+  
+      .button {
+        display: block;
+        width: fit-content;
+        background-color: $backgroundColor;
+        color: $textColor;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        border: 1px solid $textColor;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: $backgroundColor2;
+          color: $textColor2;
+        }
+      }
+  
+      .social {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+  
+        a {
+          font-size: 25px;
+          color: $textColor;
+          transition: transform 0.3s ease;
+  
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+  
+      .profile-image {
+        margin-bottom: 20px;
+      }
+  
+      .profile-content {
+        h1 {
+          font-size: 1.8rem;
+        }
+  
+        p {
+          font-size: 1rem;
+        }
+  
+        .button {
+          margin: 0 auto 20px;
+        }
+  
+        .social {
+          justify-content: center;
+        }
       }
     }
   }
+  
 
   .social {
     position: relative;

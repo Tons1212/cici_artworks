@@ -2,11 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaArrowLeft } from 'react-icons/fa';
-import backgroundImg from '../assets/background.jpeg';
-import bg2 from '../assets/bg2.jpeg';
-import bg3 from '../assets/bg3.jpeg';
-import germany from '../assets/Germany.png';
 import england from '../assets/royaume-uni.png';
+import germany from '../assets/Germany.png';
+import profil from '../assets/profil_pic.jpeg';
 import logo from '../assets/Logo_Cici.jpeg';
 import CartDrawer from "../components/CartDrawer";
 import { useAuth } from "../components/AuthContext";
@@ -17,8 +15,6 @@ function Header() {
   const { token, logout } = useAuth();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartRef = useRef(null);
-  const [currentBgIndex, setCurrentBgIndex] = useState(0);
-  const backgrounds = [backgroundImg, bg2, bg3];
   const isHome = location.pathname === "/";
 
   
@@ -26,14 +22,6 @@ function Header() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBgIndex((prevIndex) => (prevIndex + 1) % backgrounds.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -84,17 +72,6 @@ function Header() {
           <FaArrowLeft />
         </Link>
       )}
-
-        {isHome &&
-          backgrounds.map((bg, index) => (
-            <img
-              key={index}
-              src={bg}
-              className={`carousel-bg ${index === currentBgIndex ? 'active' : ''}`}
-              alt={`background-${index}`}
-            />
-          ))
-        }
 
 
       <div className="hamburger" id="hamburger">
@@ -159,17 +136,15 @@ function Header() {
       </nav>
 
       {isHome && (
-  <div className="intro">
-    <h1 className="animate__animated animate__lightSpeedInRight">
-      {t('header.intro')}
-    </h1>
-    <p className="animate__animated animate__lightSpeedInRight">
-      {t('header.intro1')}
-    </p>
-    <a href="#about" className="button animate__animated animate__lightSpeedInRight">
-      {t('header.learnMore')}
-    </a>
-    <div className="social animate__animated animate__lightSpeedInRight">
+  <div className="intro-profile">
+  <div className="profile-image">
+    <img src={profil} alt="Profil" />
+  </div>
+  <div className="profile-content">
+    <h1>{t('header.intro')}</h1>
+    <p>{t('header.intro1')}</p>
+    <a href="#about" className="button">{t('header.learnMore')}</a>
+    <div className="social">
       <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
         <i className="fa-brands fa-instagram"></i>
       </a>
@@ -178,6 +153,7 @@ function Header() {
       </a>
     </div>
   </div>
+</div>
 )}
 
     </header>
