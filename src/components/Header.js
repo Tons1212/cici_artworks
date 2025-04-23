@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaArrowLeft } from 'react-icons/fa';
 import backgroundImg from '../assets/background.jpeg';
@@ -19,26 +19,9 @@ function Header() {
   const cartRef = useRef(null);
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const backgrounds = [backgroundImg, bg2, bg3];
-  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
 
-const navigateWithScroll = (anchor) => {
-  if (location.pathname !== '/') {
-    navigate('/', { replace: false });
-    // Delay scroll to ensure DOM is ready
-    setTimeout(() => {
-      const element = document.getElementById(anchor);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100); // petite latence pour attendre le DOM
-  } else {
-    const element = document.getElementById(anchor);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-};
-
+  
   // Scroll en haut
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -95,23 +78,24 @@ const navigateWithScroll = (anchor) => {
   }, []);
 
   return (
-    <header className={location.pathname === "/login" ? "header-login" : ""}>
+    <header className={isHome ? "header header-home" : "header header-simple"}>
       {location.pathname === "/login" && (
         <Link to="/" className="back-arrow">
           <FaArrowLeft />
         </Link>
       )}
 
-      {location.pathname !== "/login" &&
-        backgrounds.map((bg, index) => (
-          <img
-            key={index}
-            src={bg}
-            className={`carousel-bg ${index === currentBgIndex ? 'active' : ''}`}
-            alt={`background-${index}`}
-          />
-        ))
-      }
+        {isHome &&
+          backgrounds.map((bg, index) => (
+            <img
+              key={index}
+              src={bg}
+              className={`carousel-bg ${index === currentBgIndex ? 'active' : ''}`}
+              alt={`background-${index}`}
+            />
+          ))
+        }
+
 
       <div className="hamburger" id="hamburger">
         <div></div>
@@ -145,10 +129,9 @@ const navigateWithScroll = (anchor) => {
           >
             {t('header.home')}
           </Link>
-          <button onClick={() => navigateWithScroll('about')}>{t('header.about')}</button>
-          <button onClick={() => navigateWithScroll('gallery')}>{t('header.gallery')}</button>
-          <button onClick={() => navigateWithScroll('contactForm')}>{t('header.contact')}</button>
-
+          <Link to="/about">{t('header.about')}</Link>
+          <Link to="/gallery">{t('header.gallery')}</Link>
+          <Link to="/contact">{t('header.contact')}</Link>
           {token ? (
             <button onClick={logout} className="navLinksContainer-button login-link">
               {t('header.logout')}
@@ -175,25 +158,28 @@ const navigateWithScroll = (anchor) => {
         </div>
       </nav>
 
-      <div className="intro">
-        <h1 className="animate__animated animate__lightSpeedInRight">
-          {t('header.intro')}
-        </h1>
-        <p className="animate__animated animate__lightSpeedInRight">
-        {t('header.intro1')}
-        </p>
-        <a href="#about" className="button animate__animated animate__lightSpeedInRight">
-          {t('header.learnMore')}
-        </a>
-        <div className="social animate__animated animate__lightSpeedInRight">
-          <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
-            <i className="fa-brands fa-instagram"></i>
-          </a>
-          <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
-            <i className="fa-brands fa-tiktok"></i>
-          </a>
-        </div>
-      </div>
+      {isHome && (
+  <div className="intro">
+    <h1 className="animate__animated animate__lightSpeedInRight">
+      {t('header.intro')}
+    </h1>
+    <p className="animate__animated animate__lightSpeedInRight">
+      {t('header.intro1')}
+    </p>
+    <a href="#about" className="button animate__animated animate__lightSpeedInRight">
+      {t('header.learnMore')}
+    </a>
+    <div className="social animate__animated animate__lightSpeedInRight">
+      <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
+        <i className="fa-brands fa-instagram"></i>
+      </a>
+      <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
+        <i className="fa-brands fa-tiktok"></i>
+      </a>
+    </div>
+  </div>
+)}
+
     </header>
   );
 }

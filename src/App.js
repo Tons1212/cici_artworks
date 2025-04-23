@@ -31,16 +31,12 @@ function App() {
           <div className="fade-in">
             <Header token={token} setToken={setToken} />
             <Routes>
-            <Route path="/" element={
-            <>
-              <About />
-              <Gallery />
-              <ContactForm />
-              <Footer />
-            </>
-  } />
-  <Route path="/login" element={<Login setToken={setToken} />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/contact" element={<ContactForm />} />
+              <Route path="/login" element={<Login setToken={setToken} />} />
             </Routes>
+            <Footer />
           </div>
         </Router>
       </CartProvider>

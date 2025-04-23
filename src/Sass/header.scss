@@ -250,3 +250,28 @@ header {
     }
   }
 }
+// Applique ces classes supplémentaires au <header> en fonction de la page
+.header-home {
+  height: 100vh;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: 60vh;
+  }
+
+  .carousel-bg,
+  .intro {
+    display: block;
+  }
+}
+
+.header-simple {
+  height: auto;
+  background: none;
+
+  .carousel-bg,
+  .intro {
+    display: none;
+  }
+}
+
