@@ -136,25 +136,32 @@ function Header() {
       </nav>
 
       {isHome && (
-  <div className="intro-profile">
-  <div className="profile-image">
-    <img src={profil} alt="Profil" />
-  </div>
-  <div className="profile-content">
-    <h1>{t('header.intro')}</h1>
-    <p>{t('header.intro1')}</p>
-    <a href="#about" className="button">{t('header.learnMore')}</a>
-    <div className="social">
-      <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
-        <i className="fa-brands fa-instagram"></i>
-      </a>
-      <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
-        <i className="fa-brands fa-tiktok"></i>
-      </a>
+  <>
+    <div className="intro-profile">
+      <div className="profile-image">
+        <img src={profil} alt="Profil" />
+      </div>
+      <div className="profile-content">
+        <h1>{t('header.intro')}</h1>
+        <p>{t('header.intro1')}</p>
+      </div>
     </div>
-  </div>
-</div>
+
+    <div className="cta-social"> {/* ✅ ici, séparé */}
+    <Link className='button' to="/about">{t('header.about')}</Link>
+      {/* <a href="#about" className="button">{t('header.learnMore')}</a> */}
+      <div className="social">
+        <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
+          <i className="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
+          <i className="fa-brands fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+  </>
 )}
+
 
     </header>
   );

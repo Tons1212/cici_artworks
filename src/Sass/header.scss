@@ -4,9 +4,7 @@ header {
   height: 100vh;
   overflow: hidden;
   animation: fadein 0.5s ease-in-out;
-  @media (max-width: 768px) {
-    height:60vh;
-  }
+
   .carousel-bg {
     position: absolute;
     top: 0;
@@ -161,12 +159,16 @@ header {
     gap: 40px;
     max-width: 1200px;
     margin: 0 auto;
-  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    
     .profile-image {
       flex: 1;
       display: flex;
       justify-content: center;
-  
+      
       img {
         width: 250px;
         height: 250px;
@@ -175,25 +177,24 @@ header {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       }
     }
-  
+    
     .profile-content {
       flex: 2;
-      text-align: left;
-  
+      text-align: center;
+      
       h1 {
         font-size: 2.5rem;
         margin-bottom: 20px;
       }
-  
+      
       p {
         font-size: 1.2rem;
         margin-bottom: 20px;
         line-height: 1.6;
       }
-  
+      
+      
       .button {
-        display: block;
-        width: fit-content;
         background-color: $backgroundColor;
         color: $textColor;
         padding: 10px 20px;
@@ -202,37 +203,34 @@ header {
         border-radius: 5px;
         text-decoration: none;
         transition: background-color 0.3s ease;
-  
+        text-align: center;
         &:hover {
           background-color: $backgroundColor2;
           color: $textColor2;
         }
       }
-  
+      
       .social {
         display: flex;
         justify-content: center;
         gap: 20px;
-  
+        
         a {
           font-size: 25px;
           color: $textColor;
           transition: transform 0.3s ease;
-  
+          
           &:hover {
             transform: scale(1.1);
           }
         }
       }
     }
+  }      
   
     @media (max-width: 768px) {
       flex-direction: column;
       text-align: center;
-  
-      .profile-image {
-        margin-bottom: 20px;
-      }
   
       .profile-content {
         h1 {
@@ -253,16 +251,20 @@ header {
       }
     }
   }
+  .cta-social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   
 
   .social {
-    position: relative;
-    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 20px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px auto 10px;
     animation-delay: 900ms;    
     a {
       color: $textColor;
@@ -284,7 +286,7 @@ header {
       }
     }
   }
-}
+
 .header-login {
   background: none;
   height: auto;
@@ -310,7 +312,7 @@ header {
   overflow: hidden;
 
   @media (max-width: 768px) {
-    height: 60vh;
+    height: 100vh;
   }
 
   .carousel-bg,

@@ -15,6 +15,7 @@
     transition: background-color 0.3s ease;
     text-decoration: none;
     animation-delay: 600ms;
+    text-align: center;
     &:hover {
       background-color: $backgroundColor2;
       border-color: $borderColor;
