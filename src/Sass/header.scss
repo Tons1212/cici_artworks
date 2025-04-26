@@ -105,7 +105,7 @@ header {
         flex-direction: column;
         text-align: center;
         margin: 0;
-        a {
+        a, button {
           padding: 5px;
           font-size: 1.2rem;
           color: $textColor;
@@ -132,6 +132,7 @@ header {
         width: 22px;
         height: 2.3px;
         background-color: $textColor;
+        color: $textColor;
         margin: 3px -1px;
         transition: all 0.3s ease;
       }
@@ -150,6 +151,31 @@ header {
       }
     }
   }
+
+  .back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.5rem;
+    color: $textColor;
+    z-index: 1200; // au-dessus du menu et tout le reste
+    background-color: rgba(255, 255, 255, 0.7); // optionnel pour contraste
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+    }
+  
+    @media (max-width: 768px) {
+      top: 10px;
+      left: 10px;
+      font-size: 1.2rem;
+    }
+  }
+  
 
   .intro-profile {
     display: flex;
@@ -175,6 +201,22 @@ header {
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      }
+      .modify-button {
+        font-family: inherit;
+        position: absolute;
+        bottom: 35%;
+        left: 14.5%;
+        background-color: transparent;
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        @media (max-width: 768px) {
+          bottom: 58%;
+          left: 43%;
+        }
       }
     }
     
@@ -287,32 +329,15 @@ header {
     }
   }
 
-.header-login {
-  background: none;
-  height: auto;
-  .back-arrow {
-    position: fixed;
-    top: 10px;
-    left: 60px;
-    font-size: 20px;
-    color: $textColor2;  // Utilise la couleur que tu souhaites pour la flèche
-    cursor: pointer;
-    z-index: 9999;
-    transition: color 0.3s ease;
 
-    @media (max-width: 768px) {
-      top: 10px; /* Ajuste un peu la position pour mobile */
-      left: 60px; /* Ajuste la position pour mobile */
-    }
-  }
-}
-// Applique ces classes supplémentaires au <header> en fonction de la page
-.header-home {
-  height: 100vh;
-  overflow: hidden;
-
-  @media (max-width: 768px) {
+  
+  // Applique ces classes supplémentaires au <header> en fonction de la page
+  .header-home {
     height: 100vh;
+    overflow: hidden;
+    
+    @media (max-width: 768px) {
+      height: 100vh;
   }
 
   .carousel-bg,

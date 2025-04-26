@@ -6,7 +6,7 @@ import { useAuth } from "../components/AuthContext";
 
 function About() {
   const { t } = useTranslation();
-  const { token } = useAuth();
+  const { user } = useAuth();
   const [profileImage, setProfileImage] = useState(localStorage.getItem('profileImage') || ''); // Récupère l'image du localStorage
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function About() {
             alt='profile Cici_Artworks'
             className="profile-image"
           />
-          {token && (
+          {user && (
             <button
               className="modify-button"
               onClick={() => document.getElementById('file-input').click()} // Simule un clic sur l'input file
@@ -57,7 +57,7 @@ function About() {
             </button>
           )}
           {/* Champ de sélection de fichier invisible */}
-          {token && (
+          {user && (
             <input
               id="file-input"
               type="file"
