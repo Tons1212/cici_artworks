@@ -14,7 +14,7 @@ const Gallery = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newPainting, setNewPainting] = useState({ name: "", description: "", price: "", image: "" });
   const [imagePreview, setImagePreview] = useState(null);
-  const { token } = useAuth(); // Accès au token via contexte
+  const { user } = useAuth(); // Accès au token via contexte
 
 
   // ✅ Charger les peintures sauvegardées dès le premier rendu
@@ -68,7 +68,7 @@ const Gallery = () => {
   return (
     <div id="gallery" className="galleryContainer">
       <h2 className="text-3xl font-bold text-center mb-6">{t("gallery.title")}</h2>
-      {token && (
+      {user && (
   <Button onClick={() => setIsModalOpen(true)} className="mb-4">
     {t("gallery.addPaint")}
   </Button>
