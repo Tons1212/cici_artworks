@@ -109,7 +109,7 @@ header {
           padding: 5px;
           font-size: 1.2rem;
           color: $textColor;
-        }        
+        }      
       }
 
       &.open {
@@ -132,7 +132,6 @@ header {
         width: 22px;
         height: 2.3px;
         background-color: $textColor;
-        color: $textColor;
         margin: 3px -1px;
         transition: all 0.3s ease;
       }

@@ -27,7 +27,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         {/* Utilisation de BrowserRouter avec basename pour GitHub Pages */}
-        <Router>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <div className="fade-in">
             <Header token={token} setToken={setToken} />
             <Routes>

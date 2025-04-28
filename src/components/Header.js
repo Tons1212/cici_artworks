@@ -15,7 +15,12 @@ function Header() {
   const location = useLocation();
   const { user, logout } = useAuth();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
   const cartRef = useRef(null);
+  const navRef = useRef(null);
+  const hamburgerRef = useRef(null);
+
   const isHome = location.pathname === "/";
   const [profileImage, setProfileImage] = useState(profil); // Valeur par défaut
 
@@ -79,16 +84,36 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isCartOpen && cartRef.current && !cartRef.current.contains(event.target)) {
+      if (
+        menuOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target) &&
+        hamburgerRef.current &&
+        !hamburgerRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    
+      if (
+        isCartOpen &&
+        cartRef.current &&
+        !cartRef.current.contains(event.target)
+      ) {
         setIsCartOpen(false);
       }
     };
+    
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isCartOpen]);
+  }, [menuOpen, isCartOpen]);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+  };
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+    setMenuOpen(false);
   };
 
   return (
@@ -99,28 +124,38 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
         </Link>
       )}
 
-      <div className="hamburger" id="hamburger">
-        <div></div>
+<div
+  ref={hamburgerRef}
+  className={`hamburger ${menuOpen ? "open" : ""}`}
+  id="hamburger"
+  onClick={() => setMenuOpen(prev => !prev)}
+>       <div></div>
         <div></div>
         <div></div>
       </div>
 
-      <nav className="navLinks" id="navLinks">
-        <Link to="/" className="logo" onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } }}>
+      <nav ref={navRef} className={`navLinks ${menuOpen ? "open" : ""}`} id="navLinks">
+        <Link to="/" className="logo" onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } handleLinkClick(); }}>
           <img src={logo} alt="Logo" className="logo-img" />
         </Link>
 
         <div className="navLinksContainer">
-          <Link to="/" onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } }}>{t('header.home')}</Link>
-          <Link to="/about">{t('header.about')}</Link>
-          <Link to="/gallery">{t('header.gallery')}</Link>
-          <Link to="/contact">{t('header.contact')}</Link>
+        <Link 
+            to="/" 
+            onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } handleLinkClick('home'); }} 
+            className={activeLink === 'home' ? 'active' : ''}
+          >
+            {t('header.home')}
+          </Link>
+          <Link to="/about" onClick={handleLinkClick}>{t('header.about')}</Link>
+          <Link to="/gallery" onClick={handleLinkClick}>{t('header.gallery')}</Link>
+          <Link to="/contact" onClick={handleLinkClick}>{t('header.contact')}</Link>
           {user ? (
-            <button onClick={logout} className="navLinksContainer-button login-link">
+            <button onClick={() => { logout(); handleLinkClick(); }} className="navLinksContainer-button login-link">
               {t('header.logout')}
             </button>
           ) : (
-            <Link to="/login" className="login-link">{t('header.login')}</Link>
+            <Link to="/login" className="login-link" onClick={handleLinkClick}>{t('header.login')}</Link>
           )}
         </div>
 
@@ -132,10 +167,10 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
         </div>
 
         <div className="language-switcher">
-          <button onClick={() => changeLanguage('fr')}>
+          <button onClick={() => { changeLanguage('gr'); handleLinkClick(); }}>
             <img src={germany} alt="German" />
           </button>
-          <button onClick={() => changeLanguage('en')}>
+          <button onClick={() => { changeLanguage('en'); handleLinkClick(); }}>
             <img src={england} alt="English" />
           </button>
         </div>

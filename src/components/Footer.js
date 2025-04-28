@@ -6,7 +6,7 @@ function Footer() {
 
   return (
     <div className='footer'>
-      <p><i class="fa-regular fa-copyright"></i>   Copyright 2025 - Cici Purwanti. {t("footer.rights")}</p>
+      <p><i className="fa-regular fa-copyright"></i>   Copyright 2025 - Cici Purwanti. {t("footer.rights")}</p>
     <div className='social'>
       <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
         <i className="fa-brands fa-instagram"></i>

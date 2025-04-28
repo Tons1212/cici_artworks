@@ -32,7 +32,7 @@ const Gallery = () => {
 
   const handleAddPainting = () => {
     if (!newPainting.name || !newPainting.description || !newPainting.price || !newPainting.image) {
-      alert("Veuillez remplir tous les champs et ajouter une image !");
+      alert("Please fill up all the fields and choose a photo !");
       return;
     }
 
@@ -60,13 +60,13 @@ const Gallery = () => {
     try {
       const fileName = `${Date.now()}-${file.name}`;
 
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('user-photos') // Bucket Supabase
         .upload(fileName, file);
 
       if (error) {
-        console.error("Erreur d'upload Supabase :", error.message);
-        alert("Erreur lors de l'upload de l'image !");
+        console.error("Supabase upload error :", error.message);
+        alert("Error while uploading image !");
         return;
       }
 
@@ -82,7 +82,7 @@ const Gallery = () => {
       }));
 
     } catch (err) {
-      console.error("Erreur inattendue upload:", err);
+      console.error("Unexpected upload error:", err);
     }
   };
 
@@ -139,7 +139,7 @@ const Gallery = () => {
             />
             {imagePreview && <img src={imagePreview} alt="Preview" className="preview-image mb-2" />}
 
-            <Button onClick={handleAddPainting} className="w-full">
+            <Button onClick={handleAddPainting} className="w-full button">
               {t("gallery.add")}
             </Button>
           </div>
