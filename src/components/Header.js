@@ -17,62 +17,86 @@ function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
   const cartRef = useRef(null);
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  const isHome = location.pathname === "/";
-  const [profileImage, setProfileImage] = useState(profil); // Valeur par défaut
 
-  // Fonction pour gérer le changement d'image
+  const isHome = location.pathname === "/";
+
+  // ID fixe pour la ligne de profil unique
+  const PROFILE_ID = '7fe73140-3c62-452d-8260-73a1b7f6868c'; // remplace par une vraie valeur UUID si existante
+
+  useEffect(() => {
+    const cachedUrl = localStorage.getItem('profileImageUrl');
+  if (cachedUrl) {
+    setProfileImage(cachedUrl);
+  }
+    const fetchProfileImage = async () => {
+      const { data, error } = await supabase
+        .from('artist_profile')
+        .select('profile_image_url')
+        .eq('id', PROFILE_ID)
+        .maybeSingle();
+
+      if (data?.profile_image_url) {
+        setProfileImage(data.profile_image_url);
+      } else {
+        console.error("Erreur ou image manquante :", error);
+      }
+    };
+
+    fetchProfileImage();
+  }, []);
+
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       try {
         const { data: userData, error: userError } = await supabase.auth.getUser();
+        if (userError || !userData?.user) {
+          alert("Vous devez être connecté pour uploader une image.");
+          return;
+        }
 
-if (userError || !userData?.user) {
-  console.error("Utilisateur non connecté ou erreur :", userError);
-  alert("Vous devez être connecté pour uploader une image.");
-  return;
-}
+        const userId = userData.user.id;
+        const filePath = `user-${userId}/${Date.now()}-${file.name}`;
 
-const userId = userData.user.id;
-const filePath = `user-${userId}/${Date.now()}-${file.name}`;
+        const { error } = await supabase
+          .storage
+          .from('user-photos')
+          .upload(filePath, file, { upsert: true });
 
-        
-        // Upload de l'image dans le bucket de Supabase
-        const { data, error } = await supabase.storage
-          .from('user-photos') // Assure-toi que le bucket 'user-photos' est bien configuré
-          .upload(filePath, file);
-  
         if (error) {
           console.error('Upload failed', error);
-          alert('Upload failed');
-          return; // Si l'upload échoue, on quitte la fonction
+          alert('Échec de l’upload');
+          return;
         }
-  
-        // Vérification de la réponse de l'upload
-        if (data) {
-          console.log('Upload data:', data); // Pour voir ce qui est retourné
-          // Obtenir l'URL publique de l'image
-          const { data: publicUrlData, error: urlError } = supabase
-            .storage
-            .from('user-photos')
-            .getPublicUrl(filePath);
-  
-          if (urlError) {
-            console.error('Error getting public URL:', urlError);
-            alert('Error getting public URL');
-          } else {
-            // Mise à jour de l'URL de l'image de profil
-            setProfileImage(publicUrlData.publicUrl);
-          }
-        } else {
-          console.error('No data returned from upload');
+
+        const { data: publicUrlData, error: urlError } = supabase
+          .storage
+          .from('user-photos')
+          .getPublicUrl(filePath);
+
+        if (urlError || !publicUrlData?.publicUrl) {
+          console.error('Erreur URL publique:', urlError);
+          alert('Erreur lors de la récupération de l’URL publique');
+          return;
+        }
+
+        setProfileImage(publicUrlData.publicUrl);
+
+        const { error: updateError } = await supabase
+          .from('artist_profile')
+          .update({ profile_image_url: publicUrlData.publicUrl })
+          .eq('id', PROFILE_ID);
+
+        if (updateError) {
+          console.error('Erreur mise à jour BDD:', updateError);
         }
       } catch (error) {
-        console.error('Error uploading image:', error);
+        console.error('Erreur générale :', error);
       }
     }
   };
@@ -124,29 +148,17 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
         </Link>
       )}
 
-<div
-  ref={hamburgerRef}
-  className={`hamburger ${menuOpen ? "open" : ""}`}
-  id="hamburger"
-  onClick={() => setMenuOpen(prev => !prev)}
->       <div></div>
-        <div></div>
-        <div></div>
+      <div ref={hamburgerRef} className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(prev => !prev)}>
+        <div></div><div></div><div></div>
       </div>
 
-      <nav ref={navRef} className={`navLinks ${menuOpen ? "open" : ""}`} id="navLinks">
+      <nav ref={navRef} className={`navLinks ${menuOpen ? "open" : ""}`}>
         <Link to="/" className="logo" onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } handleLinkClick(); }}>
           <img src={logo} alt="Logo" className="logo-img" />
         </Link>
 
         <div className="navLinksContainer">
-        <Link 
-            to="/" 
-            onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } handleLinkClick('home'); }} 
-            className={activeLink === 'home' ? 'active' : ''}
-          >
-            {t('header.home')}
-          </Link>
+          <Link to="/" onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToTop(); } handleLinkClick('home'); }} className={activeLink === 'home' ? 'active' : ''}>{t('header.home')}</Link>
           <Link to="/about" onClick={handleLinkClick}>{t('header.about')}</Link>
           <Link to="/gallery" onClick={handleLinkClick}>{t('header.gallery')}</Link>
           <Link to="/contact" onClick={handleLinkClick}>{t('header.contact')}</Link>
@@ -160,19 +172,13 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
         </div>
 
         <div className="relative" ref={cartRef}>
-          <button onClick={() => setIsCartOpen((prev) => !prev)} className="cart">
-            🛒
-          </button>
+          <button onClick={() => setIsCartOpen(prev => !prev)} className="cart">🛒</button>
           <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         </div>
 
         <div className="language-switcher">
-          <button onClick={() => { changeLanguage('gr'); handleLinkClick(); }}>
-            <img src={germany} alt="German" />
-          </button>
-          <button onClick={() => { changeLanguage('en'); handleLinkClick(); }}>
-            <img src={england} alt="English" />
-          </button>
+          <button onClick={() => { changeLanguage('gr'); handleLinkClick(); }}><img src={germany} alt="German" /></button>
+          <button onClick={() => { changeLanguage('en'); handleLinkClick(); }}><img src={england} alt="English" /></button>
         </div>
       </nav>
 
@@ -180,7 +186,7 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
         <>
           <div className="intro-profile">
             <div className="profile-image">
-              <img src={profileImage} alt="Profil" />
+              <img src={profileImage || profil} alt="Profil" />
               {user && (
                 <>
                   <button className="modify-button" onClick={() => document.getElementById('header-file-input').click()}>
@@ -205,12 +211,8 @@ const filePath = `user-${userId}/${Date.now()}-${file.name}`;
           <div className="cta-social">
             <Link className='button' to="/about">{t('header.about')}</Link>
             <div className="social">
-              <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
-                <i className="fa-brands fa-tiktok"></i>
-              </a>
+              <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-instagram"></i></a>
+              <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-tiktok"></i></a>
             </div>
           </div>
         </>

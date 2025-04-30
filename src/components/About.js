@@ -42,7 +42,7 @@ function About() {
       const fileName = imageNumber === 1 ? 'about/profile1.jpg' : 'about/profile2.jpg';
       const { error: uploadError } = await supabase.storage
         .from('user-photos') // bucket 'user-photos'
-        .upload(fileName, file, { cacheControl: '3600', upsert: true });
+        .upload(fileName, file, { upsert: true });
 
       if (uploadError) {
         console.error('Upload failed', uploadError);
@@ -54,7 +54,7 @@ function About() {
       const { data: publicUrlData, error: urlError } = await supabase
         .storage
         .from('user-photos')
-        .getPublicUrl(fileName);
+        .getPublicUrl(fileName, file, { upsert: true });
 
       if (urlError) {
         console.error('Error getting public URL:', urlError);

@@ -67,7 +67,7 @@ const ContactForm = () => {
     </div>
     <div className='contactDetails'>
         <div id='contactForm' className='contactItem'>
-          <i class="fa-solid fa-at"></i><a href='mailto::cpurwanti2@gmail.com'>cpurwanti2@gmail.com</a>
+          <i className="fa-solid fa-at"></i><a href='mailto::cpurwanti2@gmail.com'>cpurwanti2@gmail.com</a>
         </div>
       </div>
     <form className='contactForm' onSubmit={handleSubmit}>
