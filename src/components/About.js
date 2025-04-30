@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useAuth } from "../components/AuthContext";
-import { supabase } from "../supabaseClient";  // Import du client Supabase
-import defaultImage1 from '../assets/about (2).jpg'; // Mets ici ton image par défaut 1
-import defaultImage2 from '../assets/about (3).jpg'; // Mets ici ton image par défaut 2
+import { supabase } from "../supabaseClient";
+import imageCompression from 'browser-image-compression';
+import defaultImage1 from '../assets/about (2).jpg';
+import defaultImage2 from '../assets/about (3).jpg';
 
 function About() {
   const { t } = useTranslation();
@@ -16,76 +17,115 @@ function About() {
 
   useEffect(() => {
     AOS.init({ duration: 1000, offset: 10 });
+
+    const cached1 = localStorage.getItem('about_profileImage1');
+    const cached2 = localStorage.getItem('about_profileImage2');
+
+    if (cached1) setProfileImage1(cached1);
+    if (cached2) setProfileImage2(cached2);
+
     fetchImages();
   }, []);
 
   const fetchImages = async () => {
-    const { data: image1 } = await supabase.storage.from('user-photos').getPublicUrl('about/profile1.jpg');
-    const { data: image2 } = await supabase.storage.from('user-photos').getPublicUrl('about/profile2.jpg');
+    const cachedPath1 = localStorage.getItem('about_profilePath1');
+    const cachedPath2 = localStorage.getItem('about_profilePath2');
 
-    if (image1?.publicUrl) setProfileImage1(image1.publicUrl);
-    if (image2?.publicUrl) setProfileImage2(image2.publicUrl);
+    if (cachedPath1) {
+      const { data } = supabase.storage.from('user-photos').getPublicUrl(cachedPath1);
+      if (data?.publicUrl) {
+        setProfileImage1(data.publicUrl);
+        localStorage.setItem('about_profileImage1', data.publicUrl);
+      }
+    }
+
+    if (cachedPath2) {
+      const { data } = supabase.storage.from('user-photos').getPublicUrl(cachedPath2);
+      if (data?.publicUrl) {
+        setProfileImage2(data.publicUrl);
+        localStorage.setItem('about_profileImage2', data.publicUrl);
+      }
+    }
   };
 
   const handleImageChange = async (e, imageNumber) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    const previewUrl = URL.createObjectURL(file);
+    if (imageNumber === 1) setProfileImage1(previewUrl);
+    else setProfileImage2(previewUrl);
+
     try {
       const { data: userData, error: userError } = await supabase.auth.getUser();
       if (userError || !userData?.user) {
-        console.error("Utilisateur non connecté ou erreur :", userError);
         alert("Vous devez être connecté pour uploader une image.");
         return;
       }
 
-      const fileName = imageNumber === 1 ? 'about/profile1.jpg' : 'about/profile2.jpg';
-      const { error: uploadError } = await supabase.storage
-        .from('user-photos') // bucket 'user-photos'
-        .upload(fileName, file, { upsert: true });
+      const userId = userData.user.id;
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800,
+        useWebWorker: true
+      });
+
+      const filePath = `about/user-${userId}/${Date.now()}-${file.name}`;
+
+      // Supprimer ancienne image si elle existe
+      const oldPath = localStorage.getItem(`about_profilePath${imageNumber}`);
+      if (oldPath) {
+        await supabase.storage.from('user-photos').remove([oldPath]);
+      }
+
+      const { error: uploadError } = await supabase
+        .storage
+        .from('user-photos')
+        .upload(filePath, compressedFile, { upsert: true });
 
       if (uploadError) {
-        console.error('Upload failed', uploadError);
-        alert('Upload failed');
+        console.error('Erreur upload:', uploadError);
         return;
       }
 
-      // Récupérer l'URL publique après upload
-      const { data: publicUrlData, error: urlError } = await supabase
+      const { data: publicUrlData, error: urlError } = supabase
         .storage
         .from('user-photos')
-        .getPublicUrl(fileName, file, { upsert: true });
+        .getPublicUrl(filePath);
 
-      if (urlError) {
-        console.error('Error getting public URL:', urlError);
-        alert('Error getting public URL');
-      } else {
-        if (imageNumber === 1) setProfileImage1(publicUrlData.publicUrl);
-        else setProfileImage2(publicUrlData.publicUrl);
+      if (urlError || !publicUrlData?.publicUrl) {
+        console.error('Erreur URL publique:', urlError);
+        return;
       }
+
+      const publicUrl = publicUrlData.publicUrl;
+
+      if (imageNumber === 1) {
+        setProfileImage1(publicUrl);
+        localStorage.setItem('about_profileImage1', publicUrl);
+        localStorage.setItem('about_profilePath1', filePath);
+      } else {
+        setProfileImage2(publicUrl);
+        localStorage.setItem('about_profileImage2', publicUrl);
+        localStorage.setItem('about_profilePath2', filePath);
+      }
+
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Erreur générale :', error);
     }
   };
 
   return (
     <section id="about" className="about lines">
-      <div className="line"></div>
-      <div className="line"></div>
-      <div className="line"></div>
-      <div className="line"></div>
-      <div className="line"></div>
+      <div className="line"></div><div className="line"></div><div className="line"></div><div className="line"></div><div className="line"></div>
       <h2>{t('about.title')}</h2>
 
-      {/* Première section : image gauche, texte droite */}
       <div className="about-section">
         <div className="profile-image image" data-aos="zoom-in-down">
           <img src={profileImage1} alt="Profile section 1" />
           {user && (
             <>
-              <button className="modify-button" onClick={() => document.getElementById('file-input-1').click()}>
-                Modify
-              </button>
+              <button className="modify-button" onClick={() => document.getElementById('file-input-1').click()}>Modify</button>
               <input
                 id="file-input-1"
                 type="file"
@@ -97,29 +137,19 @@ function About() {
           )}
         </div>
         <div className="about-text text" data-aos="zoom-in-down">
-          <p>
-            {t('about.text')}
-            <br /><br />
-          </p>
+          <p>{t('about.text')}<br /><br /></p>
         </div>
       </div>
 
-      {/* Deuxième section inversée : texte gauche, image droite */}
       <div className="about-section reverse">
         <div className="about-text text2" data-aos="zoom-in-down">
-          <p>
-            {t('about.text1')}
-            <br /><br />
-            {t('about.text2')}
-          </p>
+          <p>{t('about.text1')}<br /><br />{t('about.text2')}</p>
         </div>
         <div className="profile-image image2" data-aos="zoom-in-down">
           <img src={profileImage2} alt="Profile section 2" />
           {user && (
             <>
-              <button className="modify-button" onClick={() => document.getElementById('file-input-2').click()}>
-                Modify
-              </button>
+              <button className="modify-button" onClick={() => document.getElementById('file-input-2').click()}>Modify</button>
               <input
                 id="file-input-2"
                 type="file"

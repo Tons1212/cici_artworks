@@ -64,12 +64,31 @@ function Header() {
         }
 
         const userId = userData.user.id;
-        const filePath = `user-${userId}/${Date.now()}-${file.name}`;
+        const oldPath = localStorage.getItem('profileImagePath');
 
-        const { error } = await supabase
-          .storage
-          .from('user-photos')
-          .upload(filePath, file, { upsert: true });
+// Supprimer l’ancienne image si elle existe
+if (oldPath) {
+  await supabase.storage.from('user-photos').remove([oldPath]);
+}
+
+// Nouveau nom de fichier
+const filePath = `user-${userId}/${Date.now()}-${file.name}`;
+
+// Upload la nouvelle
+const { error } = await supabase
+  .storage
+  .from('user-photos')
+  .upload(filePath, file);
+
+if (error) {
+  console.error('Upload failed', error);
+  alert('Échec de l’upload');
+  return;
+}
+
+// Enregistrer le chemin pour une future suppression
+localStorage.setItem('profileImagePath', filePath);
+
 
         if (error) {
           console.error('Upload failed', error);
