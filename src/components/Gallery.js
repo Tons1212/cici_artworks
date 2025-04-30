@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
@@ -6,110 +6,118 @@ import { motion } from "framer-motion";
 import { useCart } from "../components/CartContext";
 import { useAuth } from "../components/AuthContext";
 import { supabase } from "../supabaseClient";
-import { v4 as uuidv4 } from 'uuid';
+import imageCompression from "browser-image-compression";
+import { v4 as uuidv4 } from "uuid";
 
 const Gallery = () => {
   const { t } = useTranslation();
   const { addToCart } = useCart();
   const { user } = useAuth();
-  
+
   const [paintings, setPaintings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newPainting, setNewPainting] = useState({ name: "", description: "", price: "", image: "" });
+  const [newPainting, setNewPainting] = useState({ name: "", description: "", price: "", file: null });
   const [imagePreview, setImagePreview] = useState(null);
-  const [uploadingImagePath, setUploadingImagePath] = useState(null); // stocke chemin d'image temporairement
 
-  // ✅ Charger les peintures depuis Supabase Storage
   useEffect(() => {
-    const fetchPaintings = async () => {
-      const { data, error } = await supabase
-        .storage
-        .from('user-photos')
-        .list('gallery', { limit: 100 });
+    const cachedPaintings = localStorage.getItem("gallery_paintings");
+    if (cachedPaintings) {
+      setPaintings(JSON.parse(cachedPaintings));
+    }
 
-      if (error) {
-        console.error("Erreur de chargement des peintures :", error.message);
-        return;
-      }
-
-      if (data) {
-        const paintingList = data.map((file) => ({
-          id: file.name,
-          name: file.metadata?.name || "Unknown", // tu pourras améliorer ça plus tard
-          description: file.metadata?.description || "",
-          price: file.metadata?.price || "",
-          image: supabase.storage.from('user-photos').getPublicUrl(`gallery/${file.name}`).data.publicUrl,
-        }));
-        setPaintings(paintingList);
-      }
-    };
-
-    fetchPaintings();
+    fetchGalleryImages();
   }, []);
 
-  const handleAddPainting = async () => {
-    if (!newPainting.name || !newPainting.description || !newPainting.price || !uploadingImagePath) {
-      alert("Please fill all the fields and upload a photo!");
+  const fetchGalleryImages = async () => {
+    const { data, error } = await supabase.storage.from("user-photos").list("gallery");
+
+    if (error) {
+      console.error("Erreur chargement galerie:", error.message);
       return;
     }
 
-    const newPaintingData = {
-      id: uploadingImagePath, 
-      name: newPainting.name,
-      description: newPainting.description,
-      price: newPainting.price,
-      image: supabase.storage.from('user-photos').getPublicUrl(uploadingImagePath).data.publicUrl,
-    };
+    const paintingList = await Promise.all(
+      data.map(async (file) => {
+        const { data: urlData } = supabase.storage.from("user-photos").getPublicUrl(`gallery/${file.name}`);
+        return {
+          id: file.name,
+          name: file.metadata?.name || "Untitled",
+          description: file.metadata?.description || "",
+          price: file.metadata?.price || "",
+          image: urlData.publicUrl,
+        };
+      })
+    );
 
-    setPaintings((prev) => [...prev, newPaintingData]);
-    setNewPainting({ name: "", description: "", price: "", image: "" });
-    setImagePreview(null);
-    setUploadingImagePath(null);
-    setIsModalOpen(false);
+    setPaintings(paintingList);
+    localStorage.setItem("gallery_paintings", JSON.stringify(paintingList));
   };
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+    setNewPainting({ ...newPainting, file });
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+  };
+
+  const handleAddPainting = async () => {
+    const { name, description, price, file } = newPainting;
+    if (!name || !description || !price || !file) {
+      alert("Veuillez remplir tous les champs et choisir une image.");
+      return;
+    }
 
     try {
-      const uniqueName = `gallery/painting-${uuidv4()}.jpg`;
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1000,
+        useWebWorker: true,
+      });
 
+      const uniqueName = `gallery/${uuidv4()}-${file.name}`;
       const { error } = await supabase.storage
-        .from('user-photos')
-        .upload(uniqueName, file, { upsert: false });
+        .from("user-photos")
+        .upload(uniqueName, compressedFile, { upsert: false });
 
       if (error) {
-        console.error("Erreur d'upload Supabase:", error.message);
-        alert("Error while uploading image!");
+        console.error("Erreur upload:", error.message);
         return;
       }
 
-      setUploadingImagePath(uniqueName); // stocker le chemin pour ajout plus tard
+      const { data: publicUrlData } = supabase.storage.from("user-photos").getPublicUrl(uniqueName);
+      const newPaint = {
+        id: uniqueName,
+        name,
+        description,
+        price,
+        image: publicUrlData.publicUrl,
+      };
 
+      const updatedPaintings = [...paintings, newPaint];
+      setPaintings(updatedPaintings);
+      localStorage.setItem("gallery_paintings", JSON.stringify(updatedPaintings));
+
+      setNewPainting({ name: "", description: "", price: "", file: null });
+      setImagePreview(null);
+      setIsModalOpen(false);
     } catch (err) {
-      console.error("Erreur inattendue:", err);
+      console.error("Erreur lors de l'ajout:", err);
     }
   };
 
   const handleDeletePainting = async (id) => {
-    const { error } = await supabase
-      .storage
-      .from('user-photos')
-      .remove([id]);
+    const { error } = await supabase.storage.from("user-photos").remove([id]);
 
     if (error) {
-      console.error("Erreur lors de la suppression :", error.message);
+      console.error("Erreur suppression:", error.message);
       return;
     }
 
-    setPaintings((prev) => prev.filter((painting) => painting.id !== id));
+    const updated = paintings.filter((p) => p.id !== id);
+    setPaintings(updated);
+    localStorage.setItem("gallery_paintings", JSON.stringify(updated));
   };
 
   return (
@@ -158,9 +166,9 @@ const Gallery = () => {
               onChange={handleFileChange}
               className="w-full p-2 border rounded mb-2"
             />
-            {imagePreview && <img src={imagePreview} alt="Preview" className="preview-image mb-2" />}
+            {imagePreview && <img src={imagePreview} alt="Preview" className="preview-image mb-2 rounded-lg" />}
 
-            <Button onClick={handleAddPainting} className="w-full button">
+            <Button onClick={handleAddPainting} className="w-full">
               {t("gallery.add")}
             </Button>
           </div>
@@ -185,7 +193,7 @@ const Gallery = () => {
                   onClick={() => addToCart(painting)}
                   className="addButton mt-2 w-full bg-green-600 text-white hover:bg-green-700"
                 >
-                  {t("gallery.addToCart") || "Ajouter au panier"}
+                  {t("gallery.addToCart")}
                 </Button>
               </CardContent>
             </Card>
