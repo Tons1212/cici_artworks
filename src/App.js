@@ -23,6 +23,12 @@ function App() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });  
+
   return (
     <AuthProvider>
       <CartProvider>
