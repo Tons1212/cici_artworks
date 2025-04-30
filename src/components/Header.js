@@ -42,6 +42,7 @@ function Header() {
 
       if (data?.profile_image_url) {
         setProfileImage(data.profile_image_url);
+        localStorage.setItem('profileImageUrl', data.profile_image_url);
       } else {
         console.error("Erreur ou image manquante :", error);
       }
@@ -53,6 +54,8 @@ function Header() {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      const localPreviewUrl = URL.createObjectURL(file);
+      setProfileImage(localPreviewUrl);
       try {
         const { data: userData, error: userError } = await supabase.auth.getUser();
         if (userError || !userData?.user) {
@@ -85,21 +88,25 @@ function Header() {
           return;
         }
 
-        setProfileImage(publicUrlData.publicUrl);
+        const publicUrl = publicUrlData.publicUrl;
+      setProfileImage(publicUrl);
 
-        const { error: updateError } = await supabase
-          .from('artist_profile')
-          .update({ profile_image_url: publicUrlData.publicUrl })
-          .eq('id', PROFILE_ID);
+      // ⬇️ Ici : on enregistre dans le localStorage
+      localStorage.setItem('profileImageUrl', publicUrl);
 
-        if (updateError) {
-          console.error('Erreur mise à jour BDD:', updateError);
-        }
-      } catch (error) {
-        console.error('Erreur générale :', error);
+      const { error: updateError } = await supabase
+        .from('artist_profile')
+        .update({ profile_image_url: publicUrl })
+        .eq('id', PROFILE_ID);
+
+      if (updateError) {
+        console.error('Erreur mise à jour BDD:', updateError);
       }
+    } catch (error) {
+      console.error('Erreur générale :', error);
     }
-  };
+  }
+};
 
   // Scroll en haut
   const scrollToTop = () => {
