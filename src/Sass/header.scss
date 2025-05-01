@@ -1,27 +1,10 @@
-header {
+// header.scss
+
+.header {
   position: relative;
   width: 100%;
-  height: 100vh;
   overflow: hidden;
   animation: fadein 0.5s ease-in-out;
-
-  .carousel-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-  
-    &.active {
-      opacity: 1;
-    }
-  }
-  
-  
 
   .navLinks {
     background-color: $backgroundColor2; 
@@ -33,6 +16,7 @@ header {
     display: flex;
     justify-content: space-between;
     z-index: 1000; 
+
     .logo {
       position: fixed;
       left: 1rem;  /* Espace depuis la gauche */
@@ -44,12 +28,14 @@ header {
         border-radius: 50%;
       }
     }
-    .navLinksContainer{
+
+    .navLinksContainer {
       display: flex;
       justify-content: center;
       flex-grow: 1;
       margin-left: 90px;
       z-index: 1000;
+
       a, button {
         color: $textColor2;
         background-color: transparent;
@@ -59,27 +45,33 @@ header {
         line-height: 40px;
         font-size: 1.2rem;
         font-family: "Kosugi Maru", sans-serif;
+
         &:hover {
           background-color: $backgroundColor3;
           cursor: pointer;
         }
       }
     }
+
     .language-switcher {
       display: flex;
       gap: 5px;
       margin-right: 10px;
+
       @media (max-width: 768px) {
         justify-content: center;
         margin-bottom: 15px;
       }
-      button{
+
+      button {
         background-color: transparent;
         border: none;
+
         img {
           width: 25px;
           height: 17px;
-          &:hover{
+
+          &:hover {
             cursor: pointer;
             border: solid 1px $textColor2;
           }
@@ -97,14 +89,17 @@ header {
       justify-content: center;
       flex-direction: column;
       transition: left 0.4s ease;
+
       .logo {
         position: fixed;
         top: 2.5%;
       }
-      .navLinksContainer{
+
+      .navLinksContainer {
         flex-direction: column;
         text-align: center;
         margin: 0;
+
         a, button {
           padding: 5px;
           font-size: 1.2rem;
@@ -117,6 +112,7 @@ header {
       }
     }
   }
+
   .hamburger {
     display: none; 
 
@@ -128,6 +124,7 @@ header {
       right: 13px;
       z-index: 1100;
       cursor: pointer;
+
       div {
         width: 22px;
         height: 2.3px;
@@ -136,7 +133,6 @@ header {
         transition: all 0.3s ease;
       }
 
-      
       &.open div:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
       }
@@ -162,196 +158,16 @@ header {
     padding: 5px;
     border-radius: 5px;
     transition: background-color 0.3s;
-  
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.9);
       cursor: pointer;
     }
-  
+
     @media (max-width: 768px) {
       top: 10px;
       left: 10px;
       font-size: 1.2rem;
     }
   }
-  
-
-  .intro-profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 20px;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    @media (max-width: 768px) {
-      flex-direction: column;
-      padding-bottom: 0;
-    }
-    
-    .profile-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      
-      img {
-        width: 250px;
-        height: 250px;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-      }
-      .modify-button {
-        font-family: inherit;
-        position: absolute;
-        bottom: 35%;
-        left: 14.5%;
-        background-color: transparent;
-        border: 1px solid #000;
-        border-radius: 5px;
-        padding: 5px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        @media (max-width: 768px) {
-          bottom: 62%;
-          left: 43%;
-        }
-      }
-    }
-    
-    .profile-content {
-      flex: 2;
-      text-align: center;
-      
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-      }
-      
-      p {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        line-height: 1.6;
-      }
-      
-      
-      .button {
-        background-color: $backgroundColor;
-        color: $textColor;
-        padding: 10px 20px;
-        margin-bottom: 20px;
-        border: 1px solid $textColor;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-        text-align: center;
-        &:hover {
-          background-color: $backgroundColor2;
-          color: $textColor2;
-        }
-      }
-      
-      .social {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        
-        a {
-          font-size: 25px;
-          color: $textColor;
-          transition: transform 0.3s ease;
-          
-          &:hover {
-            transform: scale(1.1);
-          }
-        }
-      }
-    }
-  }      
-  
-    @media (max-width: 768px) {
-      flex-direction: column;
-      text-align: center;
-  
-      .profile-content {
-        h1 {
-          font-size: 1.8rem;
-        }
-  
-        p {
-          font-size: 1rem;
-        }
-  
-        .button {
-          margin: 0 auto 20px;
-        }
-  
-        .social {
-          justify-content: center;
-        }
-      }
-    }
-  }
-  .cta-social {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-
-  .social {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 10px auto 10px;
-    animation-delay: 900ms;    
-    a {
-      color: $textColor;
-      font-size: 25px;
-      transition: transform 0.3s ease;
-      display: inline-block;
-      justify-content: center;
-      animation: bounce 1.5s ease infinite;
-      &:nth-child(1) {
-        animation-delay: 0s;
-      }
-  
-      &:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-  
-      &:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-    }
-  }
-
-
-  
-  // Applique ces classes supplémentaires au <header> en fonction de la page
-  .header-home {
-    height: 100vh;
-    overflow: hidden;
-    
-    @media (max-width: 768px) {
-      height: 100vh;
-  }
-
-  .carousel-bg,
-  .intro {
-    display: block;
-  }
 }
-
-.header-simple {
-  height: auto;
-  background: none;
-
-  .carousel-bg,
-  .intro {
-    display: none;
-  }
-}
-
