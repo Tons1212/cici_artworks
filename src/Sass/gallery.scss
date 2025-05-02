@@ -109,12 +109,7 @@
   
     &.right {
       right: 10px;
-    }
-  
-    &:hover {
-      color: red;
-    }
-  
+    }  
     svg {
       pointer-events: none; // évite les bugs de clic sur l'icône
     }
@@ -123,13 +118,14 @@
 
 /* ✅ Correction pour superposer la croix sur l’image */
 .delete-button {
-    position: relative;
-    top: 26px;
-    right: 60px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
     background: transparent;
     color: $textColor;
     border: none;
     border-radius: 50%;
+    z-index: 10;
     width: 25px;
     height: 25px;
     display: flex;
