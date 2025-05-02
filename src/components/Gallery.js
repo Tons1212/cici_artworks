@@ -8,133 +8,154 @@ import { useAuth } from "../components/AuthContext";
 import { supabase } from "../supabaseClient";
 import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 const Gallery = () => {
   const { t } = useTranslation();
   const { addToCart } = useCart();
   const { user } = useAuth();
-
+  const [carouselIndices, setCarouselIndices] = useState({});
   const [paintings, setPaintings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newPainting, setNewPainting] = useState({ name: "", description: "", price: "", file: null });
+  const [newPainting, setNewPainting] = useState({
+    name: "",
+    description: "",
+    price: "",
+    files: [],
+  });
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    const cachedPaintings = localStorage.getItem("gallery_paintings");
-    if (cachedPaintings) {
-      setPaintings(JSON.parse(cachedPaintings));
-    }
-
     fetchGalleryImages();
   }, []);
 
   const fetchGalleryImages = async () => {
-    const { data, error } = await supabase.storage.from("user-photos").list("gallery");
-
+    const { data, error } = await supabase
+      .from("gallery_paintings")
+      .select("*, painting_images(*)")
+      .order("created_at", { ascending: false });
+  
     if (error) {
-      console.error("Erreur chargement galerie:", error.message);
+      console.error("Erreur chargement DB:", error.message);
       return;
     }
-
-    const paintingList = await Promise.all(
-      data.map(async (file) => {
-        const { data: urlData } = supabase.storage.from("user-photos").getPublicUrl(`gallery/${file.name}`);
-        return {
-          id: file.name,
-          name: file.metadata?.name || "Untitled",
-          description: file.metadata?.description || "",
-          price: file.metadata?.price || "",
-          image: urlData.publicUrl,
-        };
-      })
-    );
-
-    setPaintings(paintingList);
-    localStorage.setItem("gallery_paintings", JSON.stringify(paintingList));
+  
+    setPaintings(data);
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setNewPainting({ ...newPainting, file });
-    const previewUrl = URL.createObjectURL(file);
-    setImagePreview(previewUrl);
+    const files = Array.from(e.target.files);
+    setNewPainting({ ...newPainting, files });
+  
+    const previews = files.map((file) => URL.createObjectURL(file));
+    setImagePreview(previews);
   };
 
   const handleAddPainting = async () => {
-    const { name, description, price, file } = newPainting;
-    if (!name || !description || !price || !file) {
-      alert("Veuillez remplir tous les champs et choisir une image.");
+    const { name, description, price, files } = newPainting;
+    if (!name || !description || !price || files.length === 0) {
+      alert("Veuillez remplir tous les champs et ajouter au moins une image.");
       return;
     }
 
     try {
-      const compressedFile = await imageCompression(file, {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1000,
-        useWebWorker: true,
-      });
-
-      const uniqueName = `gallery/${uuidv4()}-${file.name}`;
-      const { error } = await supabase.storage
-        .from("user-photos")
-        .upload(uniqueName, compressedFile, { upsert: false });
-
-      if (error) {
-        console.error("Erreur upload:", error.message);
-        return;
+      const { data: inserted, error: insertError } = await supabase
+        .from("gallery_paintings")
+        .insert([{ name, description, price }])
+        .select();
+  
+      if (insertError) throw insertError;
+  
+      const paintingId = inserted[0].id;
+  
+      for (const file of files) {
+        const compressed = await imageCompression(file, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1000,
+        });
+  
+        const fileName = `${uuidv4()}-${file.name}`;
+        const storagePath = `gallery/${fileName}`;
+  
+        const { error: uploadError } = await supabase.storage
+          .from("user-photos")
+          .upload(storagePath, compressed);
+  
+        if (uploadError) continue;
+  
+        const { data: urlData } = supabase.storage
+          .from("user-photos")
+          .getPublicUrl(storagePath);
+  
+        await supabase.from("painting_images").insert({
+          painting_id: paintingId,
+          image_url: urlData.publicUrl,
+          storage_path: storagePath,
+        });
       }
-
-      const { data: publicUrlData } = supabase.storage.from("user-photos").getPublicUrl(uniqueName);
-      const newPaint = {
-        id: uniqueName,
-        name,
-        description,
-        price,
-        image: publicUrlData.publicUrl,
-      };
-
-      const updatedPaintings = [...paintings, newPaint];
-      setPaintings(updatedPaintings);
-      localStorage.setItem("gallery_paintings", JSON.stringify(updatedPaintings));
-
-      setNewPainting({ name: "", description: "", price: "", file: null });
+  
+      fetchGalleryImages();
+      setNewPainting({ name: "", description: "", price: "", files: [] });
       setImagePreview(null);
       setIsModalOpen(false);
     } catch (err) {
-      console.error("Erreur lors de l'ajout:", err);
+      console.error("Erreur:", err);
     }
   };
 
   const handleDeletePainting = async (id) => {
-    const { error } = await supabase.storage.from("user-photos").remove([id]);
-
-    if (error) {
-      console.error("Erreur suppression:", error.message);
-      return;
+    // 1. Récupérer les chemins à supprimer
+    const { data: images } = await supabase
+      .from("painting_images")
+      .select("storage_path")
+      .eq("painting_id", id);
+  
+    const paths = images?.map((img) => img.storage_path) || [];
+  
+    if (paths.length > 0) {
+      await supabase.storage.from("user-photos").remove(paths);
     }
-
-    const updated = paintings.filter((p) => p.id !== id);
-    setPaintings(updated);
-    localStorage.setItem("gallery_paintings", JSON.stringify(updated));
+  
+    await supabase.from("gallery_paintings").delete().eq("id", id);
+  
+    setPaintings(paintings.filter((p) => p.id !== id));
   };
+
+  const handlePrev = (id) => {
+    setCarouselIndices((prev) => ({
+      ...prev,
+      [id]: (prev[id] > 0 ? prev[id] - 1 : paintingMap[id].length - 1),
+    }));
+  };
+  
+  const handleNext = (id) => {
+    setCarouselIndices((prev) => ({
+      ...prev,
+      [id]: (prev[id] < paintingMap[id].length - 1 ? prev[id] + 1 : 0),
+    }));
+  };  
+
+  const paintingMap = paintings.reduce((acc, p) => {
+    acc[p.id] = p.painting_images || [];
+    return acc;
+  }, {});  
 
   return (
     <div id="gallery" className="galleryContainer">
       <h2 className="text-3xl font-bold text-center mb-6">{t("gallery.title")}</h2>
-
+  
       {user && (
         <Button onClick={() => setIsModalOpen(true)} className="mb-4">
           {t("gallery.addPaint")}
         </Button>
       )}
-
+  
       {isModalOpen && (
         <div className="modal absolute mt-2 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow-lg p-4">
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-lg font-semibold">{t("gallery.addPaint")}</h2>
-            <button onClick={() => setIsModalOpen(false)} className="text-gray-600 hover:text-red-500 text-xl">
+            <button onClick={() => setIsModalOpen(false)} className=" delete-button text-gray-600 hover:text-red-500 text-xl">
               ✖
             </button>
           </div>
@@ -163,28 +184,55 @@ const Gallery = () => {
             <input
               type="file"
               accept="image/*"
+              multiple
               onChange={handleFileChange}
               className="w-full p-2 border rounded mb-2"
             />
-            {imagePreview && <img src={imagePreview} alt="Preview" className="preview-image mb-2 rounded-lg" />}
-
-            <Button onClick={handleAddPainting} className="w-full">
+            {imagePreview && (
+              <div className="preview flex gap-2 mb-2 overflow-x-auto">
+                {imagePreview.map((src, i) => (
+                  <img key={i} src={src} alt={`Preview ${i}`} className="preview-image" />
+                ))}
+              </div>
+            )}
+            <Button onClick={handleAddPainting} className="addButton w-full">
               {t("gallery.add")}
             </Button>
           </div>
         </div>
       )}
-
+  
       <div className="gallery-grid">
         {paintings.map((painting) => (
           <motion.div key={painting.id} className="relative">
-            <Card className="shadow-lg rounded-2xl overflow-hidden">
+            <Card className="card">
               {user && (
                 <button className="delete-button" onClick={() => handleDeletePainting(painting.id)}>
                   ✖
                 </button>
               )}
-              <img src={painting.image} alt={painting.name} className="gallery-image" />
+              <div className="relative w-full h-64 overflow-hidden">
+              {painting.painting_images && painting.painting_images.length > 0 ? (
+                <div className="carousel-wrapper">
+                <button className="carousel-arrow left" onClick={() => handlePrev(painting.id)}>
+                  <ChevronLeft size={24} />
+                </button>
+                <img
+                  src={painting.painting_images[carouselIndices[painting.id] || 0]?.image_url}
+                  alt={`Peinture ${painting.name}`}
+                  className="gallery-image"
+                />
+                <button className="carousel-arrow right" onClick={() => handleNext(painting.id)}>
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+              
+              ) : (
+                <p className="text-gray-400 italic">Pas d’image disponible</p>
+              )}
+
+              </div>
+  
               <CardContent className="p-4">
                 <h2 className="text-xl font-semibold">{painting.name}</h2>
                 <p className="text-gray-600 mt-2">{painting.description}</p>

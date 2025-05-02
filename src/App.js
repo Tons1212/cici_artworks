@@ -9,6 +9,7 @@ import { CartProvider } from "./components/CartContext";
 import { AuthProvider } from "./components/AuthContext";
 import Login from './components/Login';
 import Home from './components/Home';
+import PaintingDetail from './components/PaintingDetail';
 
 import './main.scss';
 import './i18n';
@@ -33,6 +34,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/gallery" element={<Gallery />} />
+              <Route path="/painting/:id" element={<PaintingDetail />} />
               <Route path="/contact" element={<ContactForm />} />
               <Route path="/login" element={<Login />} /> {/* On ne passe plus setToken */}
             </Routes>

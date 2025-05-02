@@ -14,6 +14,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .addButton {
+        display: flex;
+        margin: 30px auto 30px;
+    }
 }
 
 .gallery-grid {
@@ -32,24 +36,96 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 100%; /* Permet l'adaptation */
-    margin: auto;
     border: 1px solid $textColor;
-    position: relative; /* Permet de positionner la croix par rapport à la carte */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        display: flex;
+        justify-content: center;
+
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    p {
+        display: flex;
+        justify-content: center;
+    }
+
+    .addButton {
+        width: 100%;
+    }
+
+    img {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
 }
 
-.gallery-image {
+.carousel-wrapper {
+    position: relative;
     width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px 8px 0 0;
+    aspect-ratio: 4 / 3; // Par exemple, ou 16/9, selon ce que tu veux
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
 }
+ 
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    opacity: 0.6;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $textColor;
+    padding: 0;
+  
+    &.left {
+      left: 10px;
+    }
+  
+    &.right {
+      right: 10px;
+    }
+  
+    &:hover {
+      color: red;
+    }
+  
+    svg {
+      pointer-events: none; // évite les bugs de clic sur l'icône
+    }
+  }
+
 
 /* ✅ Correction pour superposer la croix sur l’image */
 .delete-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+    position: relative;
+    top: 26px;
+    right: 60px;
     background: transparent;
     color: $textColor;
     border: none;
@@ -69,11 +145,26 @@
 }
 
 /* ✅ Pour éviter la déformation des aperçus */
+.preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
 .preview-image {
-    display: block;
+    display: flex;
     max-width: 100%;
     max-height: 200px;
     object-fit: cover;
     margin: 20px auto 10px;
     border-radius: 8px;
 }
+.addButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
