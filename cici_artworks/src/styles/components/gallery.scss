@@ -1,0 +1,208 @@
+.galleryContainer {
+    max-width: 1200px; /* Centre la galerie et limite la largeur */
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: transparent;
+    border-radius: 8px;
+    width: 100%;
+    position: relative; /* Pour la position de la croix de fermeture */
+
+
+    /* Container pour les inputs, en ligne (row) */
+    .inputs {
+        display: flex;
+        flex-wrap: wrap; /* Pour qu'ils s'ajustent en mobile */
+        justify-content: space-between;
+        gap: 10px; /* Espace entre les inputs */
+        width: 100%;
+        @media (max-width: 768px) {
+            flex-direction: column; 
+            align-items: center; /* Centre les inputs */
+            gap: 0;
+        }
+    }
+
+    input {
+        width: 32%; /* Chaque input prend environ un tiers de la ligne */
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid $textColor;
+        background-color: white;
+        color: $textColor;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        @media (max-width: 768px) {
+            width: 100%; /* En mobile, chaque input prend toute la largeur */
+        }
+    }
+
+    /* Bouton pour ajouter une photo (input file) */
+    .file-input {
+        width: 50%;
+        margin: 0 auto 15px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid $textColor;
+        background-color: white;
+        color: $textColor;
+        cursor: pointer;
+        @media (max-width: 768px) {
+            width: 100%; /* En mobile, chaque input prend toute la largeur */
+        }
+    }
+
+    .add_close_modal {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+    }
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Plus flexible */
+    gap: 1rem;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
+.card {
+    background: $backgroundColor;
+    padding: 5px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid $textColor;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        display: flex;
+        justify-content: center;
+        margin: 20px;
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    p {
+        display: flex;
+        justify-content: center;
+        margin: 5px;
+    }
+
+    .addButton {
+        width: 100%;
+    }
+
+    img {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3; // Par exemple, ou 16/9, selon ce que tu veux
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
+}
+ 
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    opacity: 0.6;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $textColor;
+    padding: 0;
+  
+    &.left {
+      left: 10px;
+    }
+  
+    &.right {
+      right: 10px;
+    }  
+    svg {
+      pointer-events: none; // évite les bugs de clic sur l'icône
+    }
+  }
+
+
+/* ✅ Correction pour superposer la croix sur l’image */
+.delete-button {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    color: $textColor;
+    border: none;
+    border-radius: 50%;
+    z-index: 10;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-button:hover {
+    background: $backgroundColor; /* Change la couleur de fond au survol */
+}
+
+/* ✅ Pour éviter la déformation des aperçus */
+.preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.preview-image {
+    display: flex;
+    object-fit: cover;
+    margin: 20px auto 10px;
+    border-radius: 8px;
+}
+
+

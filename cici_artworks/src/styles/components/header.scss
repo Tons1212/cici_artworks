@@ -1,0 +1,169 @@
+// header.scss
+
+.header {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  animation: fadein 0.5s ease-in-out;
+
+  .navLinks {
+    background-color: $backgroundColor2; 
+    height: 40px;
+    width: 100%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000; 
+
+    .logo {
+      position: fixed;
+      left: 1rem;  /* Espace depuis la gauche */
+      top: 3.7%;
+      transform: translateY(-50%); /* Centrer verticalement */
+      
+      .logo-img {
+        width: 30px;  /* Ajuste la taille du logo selon tes besoins */
+        height: auto;
+        border-radius: 50%;
+      }
+    }
+
+    .navLinksContainer {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+      margin-left: 90px;
+      z-index: 1000;
+
+      a, button {
+        color: $textColor2;
+        background-color: transparent;
+        border: none;
+        text-decoration: none;
+        padding: 0 15px; 
+        line-height: 40px;
+        font-size: 1.2rem;
+        font-family: "Kosugi Maru", sans-serif;
+
+        &:hover {
+          background-color: $backgroundColor3;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .language-switcher {
+      display: flex;
+      gap: 5px;
+      margin-right: 10px;
+
+      @media (max-width: 768px) {
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+
+        img {
+          width: 25px;
+          height: 17px;
+
+          &:hover {
+            cursor: pointer;
+            border: solid 1px $textColor2;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      position: fixed;
+      top: 0px;
+      left: 100%; 
+      height: 67vh;
+      width: 45%; 
+      background-color: $backgroundColor; 
+      justify-content: center;
+      flex-direction: column;
+      transition: left 0.4s ease;
+
+      .navLinksContainer {
+        flex-direction: column;
+        text-align: center;
+        margin: 0;
+
+        a, button {
+          padding: 5px;
+          font-size: 1.2rem;
+          color: $textColor;
+        }      
+      }
+
+      &.open {
+        left: 55%;
+      }
+    }
+  }
+
+  .hamburger {
+    display: none; 
+
+    @media (max-width: 768px) {
+      display: block;
+      position: fixed;
+      background-color: transparent;
+      top: 10px;
+      right: 13px;
+      z-index: 1100;
+      cursor: pointer;
+
+      div {
+        width: 22px;
+        height: 2.3px;
+        background-color: $textColor;
+        margin: 3px -1px;
+        transition: all 0.3s ease;
+      }
+
+      &.open div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &.open div:nth-child(2) {
+        opacity: 0; 
+      }
+
+      &.open div:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+  }
+
+  .back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.5rem;
+    color: $textColor;
+    z-index: 1200; // au-dessus du menu et tout le reste
+    background-color: rgba(255, 255, 255, 0.7); // optionnel pour contraste
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      top: 10px;
+      left: 10px;
+      font-size: 1.2rem;
+    }
+  }
+}
