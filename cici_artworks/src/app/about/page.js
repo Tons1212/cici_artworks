@@ -22,16 +22,18 @@ function About() {
   useEffect(() => {
     AOS.init({ duration: 1000, offset: 10 });
 
-    const cached1 = localStorage.getItem('about_profileImage1');
-    const cached2 = localStorage.getItem('about_profileImage2');
+    if (typeof window !== 'undefined') {
+      const cached1 = localStorage.getItem('about_profileImage1');
+      const cached2 = localStorage.getItem('about_profileImage2');
 
-    if (cached1) setProfileImage1(cached1);
-    if (cached2) setProfileImage2(cached2);
+      if (cached1) setProfileImage1(cached1);
+      if (cached2) setProfileImage2(cached2);
 
-    fetchImages();
+      fetchAndSetImages();
+    }
   }, []);
 
-  const fetchImages = async () => {
+  const fetchAndSetImages = async () => {
     const cachedPath1 = localStorage.getItem('about_profilePath1');
     const cachedPath2 = localStorage.getItem('about_profilePath2');
 
@@ -71,12 +73,12 @@ function About() {
       const compressedFile = await imageCompression(file, {
         maxSizeMB: 1,
         maxWidthOrHeight: 800,
-        useWebWorker: true
+        useWebWorker: true,
       });
 
       const filePath = `about/user-${userId}/${Date.now()}-${file.name}`;
-
       const oldPath = localStorage.getItem(`about_profilePath${imageNumber}`);
+
       if (oldPath) {
         await supabase.storage.from('user-photos').remove([oldPath]);
       }
@@ -124,11 +126,20 @@ function About() {
       <h2>{t('about.title')}</h2>
 
       <div className="about-section">
-        <div className="profile-image image" data-aos="zoom-in-down" style={{ position: 'relative', width: '100%', height: '400px' }}>
+        <div
+          className="profile-image image"
+          data-aos="zoom-in-down"
+          style={{ position: 'relative', width: '100%', height: '400px' }}
+        >
           <Image src={profileImage1} alt="Profile section 1" priority fill style={{ objectFit: 'cover' }} unoptimized />
           {user && (
             <>
-              <button className="modify-button" onClick={() => document.getElementById('file-input-1').click()}>Modify</button>
+              <button
+                className="modify-button"
+                onClick={() => document.getElementById('file-input-1').click()}
+              >
+                Modify
+              </button>
               <input
                 id="file-input-1"
                 type="file"
@@ -148,11 +159,20 @@ function About() {
         <div className="about-text text2" data-aos="zoom-in-down">
           <p>{t('about.text1')}<br /><br />{t('about.text2')}</p>
         </div>
-        <div className="profile-image image2" data-aos="zoom-in-down" style={{ position: 'relative', width: '100%', height: '400px' }}>
+        <div
+          className="profile-image image2"
+          data-aos="zoom-in-down"
+          style={{ position: 'relative', width: '100%', height: '400px' }}
+        >
           <Image src={profileImage2} alt="Profile section 2" priority fill style={{ objectFit: 'cover' }} unoptimized />
           {user && (
             <>
-              <button className="modify-button" onClick={() => document.getElementById('file-input-2').click()}>Modify</button>
+              <button
+                className="modify-button"
+                onClick={() => document.getElementById('file-input-2').click()}
+              >
+                Modify
+              </button>
               <input
                 id="file-input-2"
                 type="file"

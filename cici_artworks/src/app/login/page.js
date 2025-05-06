@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
@@ -18,8 +19,11 @@ const Login = () => {
       router.push("/");
     }
 
-    const savedEmail = localStorage.getItem("email");
-    if (savedEmail) setEmail(savedEmail);
+    // Vérification si localStorage est disponible dans le navigateur
+    if (typeof window !== 'undefined') {
+      const savedEmail = localStorage.getItem("email");
+      if (savedEmail) setEmail(savedEmail);
+    }
   }, [user, router]);
 
   const handleLogin = async (e) => {
@@ -38,7 +42,9 @@ const Login = () => {
       }
 
       setUser(data.user);
-      localStorage.setItem("email", email);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("email", email);
+      }
       router.push("/");
     } catch (err) {
       console.error(err);

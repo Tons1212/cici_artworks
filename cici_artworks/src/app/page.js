@@ -6,6 +6,7 @@ import { useAuth } from '../components/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
+
 const profil = '/profil_pic.jpeg';
 
 function Home() {
@@ -15,6 +16,8 @@ function Home() {
   const PROFILE_ID = '7fe73140-3c62-452d-8260-73a1b7f6868c';
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const cachedUrl = localStorage.getItem('profileImageUrl');
     if (cachedUrl) {
       setProfileImage(cachedUrl);
@@ -95,11 +98,19 @@ function Home() {
     <main className="home-content">
       <div className="intro-profile">
         <div className="profile-image">
-          <Image src={profileImage || profil} alt="Profil" className='profilPic' width={250}
-  height={250}/>
+          <Image
+            src={profileImage || profil}
+            alt="Profil"
+            className="profilPic"
+            width={250}
+            height={250}
+          />
           {user && (
             <>
-              <button className="modify-button" onClick={() => document.getElementById('file-input').click()}>
+              <button
+                className="modify-button"
+                onClick={() => document.getElementById('file-input').click()}
+              >
                 Modify
               </button>
               <input
@@ -119,12 +130,22 @@ function Home() {
       </div>
 
       <div className="cta-social">
-        <Link className='button' href="/about">{t('header.about')}</Link>
+        <Link className="button" href="/about">
+          {t('header.about')}
+        </Link>
         <div className="social">
-          <a href="https://www.instagram.com/artworks.bycici/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.instagram.com/artworks.bycici/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="fa-brands fa-instagram"></i>
           </a>
-          <a href="https://www.tiktok.com/@artgallery_cimot/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.tiktok.com/@artgallery_cimot/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="fa-brands fa-tiktok"></i>
           </a>
         </div>

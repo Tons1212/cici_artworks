@@ -1,14 +1,18 @@
-"use client";
+'use client';
+
 import { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../lib/supabaseClient'; // Assurez-vous que le chemin est correct
+import { supabase } from '../lib/supabaseClient';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    // Charger immédiatement depuis localStorage si dispo
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
+    // Charger immédiatement depuis localStorage si dispo, uniquement dans le navigateur
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+    return null;
   });
   const [loading, setLoading] = useState(true);
 
@@ -17,10 +21,14 @@ export const AuthProvider = ({ children }) => {
       const { data } = await supabase.auth.getUser(); // Récupère l'utilisateur actuel depuis Supabase
       if (data?.user) {
         setUser(data.user); // Si un utilisateur est trouvé, on le met dans l'état
-        localStorage.setItem('user', JSON.stringify(data.user)); // 🔥 Mettre à jour localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('user', JSON.stringify(data.user)); // 🔥 Mettre à jour localStorage
+        }
       } else {
         setUser(null); // Si aucun utilisateur n'est trouvé, on le retire de l'état
-        localStorage.removeItem('user'); // 🔥 Nettoyer si pas d'user
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('user'); // 🔥 Nettoyer si pas d'user
+        }
       }
       setLoading(false); // Une fois qu'on a récupéré les données, on n'est plus en chargement
     };
@@ -31,10 +39,14 @@ export const AuthProvider = ({ children }) => {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         setUser(session.user); // Si l'utilisateur est connecté
-        localStorage.setItem('user', JSON.stringify(session.user)); // 🔥 Mise à jour sur auth change
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('user', JSON.stringify(session.user)); // 🔥 Mise à jour sur auth change
+        }
       } else {
         setUser(null); // Sinon, on déconnecte l'utilisateur
-        localStorage.removeItem('user'); // 🔥 Nettoyer
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('user'); // 🔥 Nettoyer
+        }
       }
     });
 
@@ -46,13 +58,17 @@ export const AuthProvider = ({ children }) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error; // Si une erreur survient, on la lance
     setUser(data.user); // Si connexion réussie, on met l'utilisateur dans l'état
-    localStorage.setItem('user', JSON.stringify(data.user)); // 🔥 Stocker après login
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(data.user)); // 🔥 Stocker après login
+    }
   };
 
   const logout = async () => {
     await supabase.auth.signOut(); // Se déconnecter via Supabase
     setUser(null); // Réinitialiser l'état de l'utilisateur
-    localStorage.removeItem('user'); // 🔥 Nettoyer après logout
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user'); // 🔥 Nettoyer après logout
+    }
   };
 
   return (
