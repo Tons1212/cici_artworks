@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <Header />
+            <div id="drawer-root" />
             <main>{children}</main>
             <Footer />
           </CartProvider>

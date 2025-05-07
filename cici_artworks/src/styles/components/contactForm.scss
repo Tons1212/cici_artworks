@@ -76,7 +76,8 @@
             }
           }
           @media (max-width: 768px) {
-            flex-direction: column; 
+            flex-direction: column;
+            gap: 0; 
             span {
               width: 100%; 
             }
