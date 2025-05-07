@@ -16,7 +16,7 @@ export const metadata = {
   title: "Cici Artworks",
   description: "Artworks gallery",
   icons: {
-    icon: "/favicon-32x32", 
+    icon: "/favicon.ico", 
   },
 };
 
